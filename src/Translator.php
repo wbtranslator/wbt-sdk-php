@@ -9,6 +9,15 @@ class Translator extends BaseAbstract implements TranslatorInterface
 {
     public function one($abstractName, $language, GroupInterface $group = null): string
     {
+        $response = $this->getClient()->get('translations', ['query' => [
+            'abstract_name' => $abstractName,
+            'language_code' => $language,
+            'group_name' => empty($group) ? null : $group->getName(),
+        ]]);
+        $data = json_decode($response->getBody(), true);
+
+        return !empty($data['data'][0]['translations'][0]['value']) ?
+            $data['data'][0]['translations'][0]['value'] : '';
     }
 
     public function byLanguage($language): Collection
@@ -69,6 +78,7 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return new Collection(empty($collections) ? [] : $collections);
     }
 
+    // todo: rewrite
     public function send(Collection $translations)
     {
         $params = [];
