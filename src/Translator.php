@@ -2,7 +2,6 @@
 
 namespace Translator;
 
-use Translator\Collection\CollectionInterface;
 use Translator\Group\GroupInterface;
 use Translator\Translator\TranslatorInterface;
 
@@ -12,10 +11,8 @@ class Translator extends BaseAbstract implements TranslatorInterface
     {
     }
 
-    public function byLanguage($language): CollectionInterface
+    public function byLanguage($language): Collection
     {
-        $collection = new Collection();
-
         $response = $this->getClient()->get('translations', ['query' => [
             'language_code' => $language,
         ]]);
@@ -29,18 +26,18 @@ class Translator extends BaseAbstract implements TranslatorInterface
                 $translation->setComment($val->comment);
                 $translation->addGroup(new Group($val->group));
 
-                $collection->add($translation);
+                $collections[] = $translation;
             }
         }
 
-        return $collection;
+        return new Collection(empty($collections) ? [] : $collections);
     }
 
-    public function byGroup(GroupInterface $group): CollectionInterface
+    public function byGroup(GroupInterface $group): Collection
     {
     }
 
-    public function all(): CollectionInterface
+    public function all(): Collection
     {
         $collection = new Collection();
 
@@ -68,7 +65,7 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return $collection;
     }
 
-    public function send(CollectionInterface $translations)
+    public function send(Collection $translations)
     {
         $params = [];
 

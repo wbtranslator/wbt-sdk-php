@@ -6,6 +6,7 @@ use Translator\Group\GroupInterface;
 
 /**
  * Interface TranslationInterface
+ * @package Translator
  */
 interface TranslationInterface
 {

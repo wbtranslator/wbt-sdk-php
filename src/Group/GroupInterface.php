@@ -4,6 +4,7 @@ namespace Translator\Group;
 
 /**
  * Interface GroupInterface
+ * @package Translator
  */
 interface GroupInterface
 {

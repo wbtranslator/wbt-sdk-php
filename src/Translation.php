@@ -4,15 +4,41 @@ namespace Translator;
 
 use Translator\Group\GroupInterface;
 use Translator\Translation\TranslationInterface;
-use Translator\Collection\CollectionInterface;
 
+/**
+ * Class Translation
+ * @package Translator
+ */
 class Translation implements TranslationInterface
 {
+    /**
+     * @var GroupInterface
+     */
     protected $group;
+
+    /**
+     * @var string
+     */
     protected $comment;
+
+    /**
+     * @var string
+     */
     protected $language;
+
+    /**
+     * @var string
+     */
     protected $translation;
+
+    /**
+     * @var string
+     */
     protected $abstractName;
+
+    /**
+     * @var string
+     */
     protected $originalValue;
 
     /**

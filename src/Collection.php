@@ -2,11 +2,14 @@
 
 namespace Translator;
 
-use Translator\Collection\CollectionInterface;
-
-class Collection implements CollectionInterface, \IteratorAggregate
+class Collection implements \IteratorAggregate
 {
     public $collections = [];
+
+    public function __construct(array $collections = [])
+    {
+        $this->collections = $collections;
+    }
 
     public function add($collection)
     {

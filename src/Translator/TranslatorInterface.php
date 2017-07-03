@@ -2,13 +2,12 @@
 
 namespace Translator\Translator;
 
-use Translator\Collection\CollectionInterface;
-use Translator\Group\GroupInterface;
+use Translator\Collection;
 use Translator\Translation;
+use Translator\Group\GroupInterface;
 
 /**
  * Interface TranslatorInterface
- *
  * @package Translator
  */
 interface TranslatorInterface
@@ -23,24 +22,24 @@ interface TranslatorInterface
 
    /**
      * @param string $language
-     * @return CollectionInterface|Translation[] - CollectionInterface of Translation objects
+     * @return Collection|Translation[] - Collection of Translation objects
      */
-    public function byLanguage($language): CollectionInterface;
+    public function byLanguage($language): Collection;
 
    /**
      * @param GroupInterface $group
-     * @return CollectionInterface|Translation[] - CollectionInterface of Translation objects
+     * @return Collection|Translation[] - Collection of Translation objects
      */
-    public function byGroup(GroupInterface $group): CollectionInterface;
+    public function byGroup(GroupInterface $group): Collection;
 
    /**
-     * @return CollectionInterface|Translation[] - CollectionInterface of Translation objects
+     * @return Collection|Translation[] - Collection of Translation objects
      */
-    public function all(): CollectionInterface;
+    public function all(): Collection;
 
    /**
-     * @param CollectionInterface|Translation[] $translations
+     * @param Collection|Translation[] $translations
      * @return bool
      */
-    public function send(CollectionInterface $translations);
+    public function send(Collection $translations);
 }
