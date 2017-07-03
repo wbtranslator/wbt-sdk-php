@@ -20,13 +20,11 @@ class Translator extends BaseAbstract implements TranslatorInterface
 
         if (!empty($data->data)) {
             foreach ($data->data as $val) {
-                $translation = new Translation();
-                $translation->setAbstractName($val->abstract_name);
-                $translation->setOriginalValue($val->original_value);
-                $translation->setComment($val->comment);
-                $translation->addGroup(new Group($val->group));
-
-                $collections[] = $translation;
+                if (!empty($val->translations)) {
+                    foreach ($val->translations as $v) {
+                        $collections[] = $this->transformTranslation($val, $v);
+                    }
+                }
             }
         }
 
@@ -35,12 +33,26 @@ class Translator extends BaseAbstract implements TranslatorInterface
 
     public function byGroup(GroupInterface $group): Collection
     {
+        $response = $this->getClient()->get('translations', ['query' => [
+            'group_name' => $group->getName(),
+        ]]);
+        $data = json_decode($response->getBody());
+
+        if (!empty($data->data)) {
+            foreach ($data->data as $val) {
+                if (!empty($val->translations)) {
+                    foreach ($val->translations as $v) {
+                        $collections[] = $this->transformTranslation($val, $v);
+                    }
+                }
+            }
+        }
+
+        return new Collection(empty($collections) ? [] : $collections);
     }
 
     public function all(): Collection
     {
-        $collection = new Collection();
-
         $response = $this->getClient()->get('translations');
         $data = json_decode($response->getBody());
 
@@ -48,21 +60,13 @@ class Translator extends BaseAbstract implements TranslatorInterface
             foreach ($data->data as $val) {
                 if (!empty($val->translations)) {
                     foreach ($val->translations as $v) {
-                        $translation = new Translation();
-                        $translation->setAbstractName($val->abstract_name);
-                        $translation->setOriginalValue($val->original_value);
-                        $translation->addGroup(new Group($val->group));
-                        $translation->setComment($v->comment);
-                        $translation->setLanguage($v->language);
-                        $translation->setTranslation($v->value);
-
-                        $collection->add($translation);
+                        $collections[] = $this->transformTranslation($val, $v);
                     }
                 }
             }
         }
 
-        return $collection;
+        return new Collection(empty($collections) ? [] : $collections);
     }
 
     public function send(Collection $translations)
@@ -85,5 +89,16 @@ class Translator extends BaseAbstract implements TranslatorInterface
         $data = json_decode($response->getBody());
 
         return !empty($data->data->count) ? (int) $data->data->count : 0;
+    }
+
+    protected function transformTranslation($abstract, $translation)
+    {
+        return (new Translation())
+            ->setAbstractName($abstract->abstract_name)
+            ->setOriginalValue($abstract->original_value)
+            ->addGroup(new Group($abstract->group))
+            ->setComment($translation->comment)
+            ->setLanguage($translation->language)
+            ->setTranslation($translation->value);
     }
 }
