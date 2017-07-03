@@ -42,6 +42,30 @@ class Translator extends BaseAbstract implements TranslatorInterface
 
     public function all(): CollectionInterface
     {
+        $collection = new Collection();
+
+        $response = $this->getClient()->get('translations');
+        $data = json_decode($response->getBody());
+
+        if (!empty($data->data)) {
+            foreach ($data->data as $val) {
+                if (!empty($val->translations)) {
+                    foreach ($val->translations as $v) {
+                        $translation = new Translation();
+                        $translation->setAbstractName($val->abstract_name);
+                        $translation->setOriginalValue($val->original_value);
+                        $translation->addGroup(new Group($val->group));
+                        $translation->setComment($v->comment);
+                        $translation->setLanguage($v->language);
+                        $translation->setTranslation($v->value);
+
+                        $collection->add($translation);
+                    }
+                }
+            }
+        }
+
+        return $collection;
     }
 
     public function send(CollectionInterface $translations)

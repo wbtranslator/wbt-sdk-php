@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$translator = new \Translator\Translator($apiKey);
+$translator = new \Translator\Translator(API_KEY);
 
 $translation = new \Translator\Translation();
 $translation->setAbstractName('test Abstract Name222');

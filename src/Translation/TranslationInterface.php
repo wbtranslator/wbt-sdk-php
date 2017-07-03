@@ -3,7 +3,6 @@
 namespace Translator\Translation;
 
 use Translator\Group\GroupInterface;
-use Translator\Collection\CollectionInterface;
 
 /**
  * Interface TranslationInterface
@@ -30,8 +29,13 @@ interface TranslationInterface
      */
     public function getComment(): string;
 
-   /**
-     * @return TranslationDetailsInterface|CollectionInterface
+    /**
+     * @return string
      */
-    public function getDetails(): CollectionInterface;
+    public function getLanguage(): string;
+
+    /**
+     * @return string
+     */
+    public function getTranslation(): string;
 }

@@ -8,11 +8,12 @@ use Translator\Collection\CollectionInterface;
 
 class Translation implements TranslationInterface
 {
-    protected $abstractName;
-    protected $originalValue;
     protected $group;
     protected $comment;
-    protected $details;
+    protected $language;
+    protected $translation;
+    protected $abstractName;
+    protected $originalValue;
 
     /**
      * @return string
@@ -22,6 +23,10 @@ class Translation implements TranslationInterface
         return $this->abstractName;
     }
 
+    /**
+     * @param string $abstractName
+     * @return Translation
+     */
     public function setAbstractName($abstractName)
     {
         $this->abstractName = $abstractName;
@@ -29,11 +34,18 @@ class Translation implements TranslationInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getOriginalValue(): string
     {
         return $this->originalValue;
     }
 
+    /**
+     * @param string $originalValue
+     * @return Translation
+     */
     public function setOriginalValue($originalValue)
     {
         $this->originalValue = $originalValue;
@@ -41,11 +53,18 @@ class Translation implements TranslationInterface
         return $this;
     }
 
+    /**
+     * @return GroupInterface
+     */
     public function getGroup(): GroupInterface
     {
         return $this->group;
     }
 
+    /**
+     * @param GroupInterface $group
+     * @return Translation
+     */
     public function addGroup(GroupInterface $group)
     {
         $this->group = $group;
@@ -53,11 +72,18 @@ class Translation implements TranslationInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getComment(): string
     {
         return $this->comment;
     }
 
+    /**
+     * @param string $comment
+     * @return Translation
+     */
     public function setComment($comment)
     {
         $this->comment = $comment;
@@ -65,14 +91,40 @@ class Translation implements TranslationInterface
         return $this;
     }
 
-    public function getDetails(): CollectionInterface
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
     {
-        return $this->details;
+        return $this->language;
     }
 
-    public function addDetails($details)
+    /**
+     * @param string $language
+     * @return Translation
+     */
+    public function setLanguage($language)
     {
-        $this->details = $details;
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslation(): string
+    {
+        return $this->translation;
+    }
+
+    /**
+     * @param string $translation
+     * @return Translation
+     */
+    public function setTranslation($translation)
+    {
+        $this->translation = $translation;
 
         return $this;
     }
