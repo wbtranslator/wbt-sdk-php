@@ -43,7 +43,7 @@ abstract class BaseAbstract
             throw new TranslatorException('Required "api_key" key not supplied in config and could not find fallback environment variable "' . static::API_KEY . '"');
         }
 
-        $handler = new HttpHandler($client);
+        $handler = new HttpHandler($client, $this->apiKey);
         $this->client = $handler->getClient();
     }
 

@@ -1,7 +1,8 @@
 <?php
+
 namespace Translator;
 
-use GuzzleHttp\Client;
+use Translator\Http\GuzzleHttpClient;
 use GuzzleHttp\ClientInterface;
 
 /**
@@ -12,7 +13,8 @@ class HttpHandler
     /**
      * @const string
      */
-    const BASE_API_URL = 'http://fnukraine.pp.ua/api/v2/project/';
+    //const BASE_API_URL = 'http://fnukraine.pp.ua/api/v2/project/';
+    const BASE_API_URL = 'http://192.168.88.149:8080/api/project/';
 
     /**
      * @var \GuzzleHttp\ClientInterface $client The client for making the HTTP request.
@@ -20,13 +22,23 @@ class HttpHandler
     private $client;
 
     /**
+     * @var string The token.
+     */
+    protected $token;
+
+    /**
      * @param \GuzzleHttp\ClientInterface $client
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(ClientInterface $client = null, $token = null)
     {
-        $this->client = $client ?: new Client([
-            'base_uri' => $this->getBaseApiUrl()
-        ]);
+        if (null === $client) {
+            $client = new GuzzleHttpClient([
+                'base_uri' => $this->getBaseApiUrl(),
+            ]);
+            $client->setToken($token);
+        }
+
+        $this->client = $client;
     }
 
     /**
@@ -42,7 +54,7 @@ class HttpHandler
     /**
      * Return HttpClient
      *
-     * @return Client|ClientInterface
+     * @return ClientInterface
      */
     public function getClient()
     {

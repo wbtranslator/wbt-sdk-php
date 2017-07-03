@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../vendor/autoload.php';
+require_once dirname(__FILE__) . '/config.php';
 
-$translator = new \Translator\Translator('37bc765476be6ecc243ac424a0e9f0f0');
-$result = $translator->byLanguage('en');
+$translator = new \Translator\Translator($apiKey);
+$result = $translator->byLanguage('be');
 
 var_dump($result);

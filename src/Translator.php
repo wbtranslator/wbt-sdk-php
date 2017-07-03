@@ -16,17 +16,18 @@ class Translator extends BaseAbstract implements TranslatorInterface
     {
         $collection = new Collection();
 
-        $response = $this->getClient()->get('translations/87', ['query' => [
-            'api_key' => $this->getApiKey(),
+        $response = $this->getClient()->get('translations', ['query' => [
             'language_code' => $language,
         ]]);
         $data = json_decode($response->getBody());
 
-        if (!empty($data->data->data)) {
-            foreach ($data->data->data as $val) {
+        if (!empty($data->data)) {
+            foreach ($data->data as $val) {
                 $translation = new Translation();
-                $translation->setAbstractName($val->name);
-                $translation->setOriginalValue($val->value);
+                $translation->setAbstractName($val->abstract_name);
+                $translation->setOriginalValue($val->original_value);
+                $translation->setComment($val->comment);
+                $translation->addGroup(new Group($val->group));
 
                 $collection->add($translation);
             }
@@ -57,7 +58,6 @@ class Translator extends BaseAbstract implements TranslatorInterface
         }
 
         $response = $this->getClient()->post('tasks/create', [
-            'query' => ['api_key' => $this->getApiKey()],
             'form_params' => ['data' => $params]
         ]);
 
