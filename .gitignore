@@ -1,1 +1,8 @@
-# Add any directories, files, or patterns you don't want to be tracked by version control
+/vendor
+composer.lock
+.idea
+.DS_STORE
+._*
+Thumbs.db
+Desktop.ini
+phpunit.xml

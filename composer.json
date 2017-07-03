@@ -1,0 +1,22 @@
+{
+    "name": "fwt-sdk-php/translator",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sergiy Tsybulko",
+            "email": "sergiy@tsybulko.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    	"guzzlehttp/guzzle": "6.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Translator\\": "src/"
+        }
+    }
+}
