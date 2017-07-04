@@ -78,8 +78,7 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return new Collection(empty($collections) ? [] : $collections);
     }
 
-    // todo: rewrite
-    public function send(Collection $translations)
+    public function send(Collection $translations): bool
     {
         $params = [];
 
@@ -92,13 +91,13 @@ class Translator extends BaseAbstract implements TranslatorInterface
             ];
         }
 
-        $response = $this->getClient()->post('tasks/create', [
+        $response = $this->getClient()->post('abstractions/create', [
             'form_params' => ['data' => $params]
         ]);
 
         $data = json_decode($response->getBody());
 
-        return !empty($data->data->count) ? (int) $data->data->count : 0;
+        return empty($data->data->count) ? false : true;
     }
 
     protected function transformTranslation($abstract, $translation)

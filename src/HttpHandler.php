@@ -13,8 +13,7 @@ class HttpHandler
     /**
      * @const string
      */
-    //const BASE_API_URL = 'http://fnukraine.pp.ua/api/v2/project/';
-    const BASE_API_URL = 'http://192.168.88.149:8080/api/project/';
+    const BASE_API_URL = 'http://fnukraine.pp.ua/api/project/';
 
     /**
      * @var \GuzzleHttp\ClientInterface $client The client for making the HTTP request.

@@ -2,13 +2,15 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$translator = new \Translator\Translator(API_KEY);
+$group = new \Translator\Group('category test');
+
+$translator = new \Translator\Translator();
 
 $translation = new \Translator\Translation();
-$translation->setAbstractName('test Abstract Name222');
-$translation->setOriginalValue('test original value3');
+$translation->setAbstractName('test Abstract 11111');
+$translation->setOriginalValue('test original 11111');
 $translation->setComment('test comment');
-$translation->addGroup(new \Translator\Group('category test'));
+$translation->addGroup($group);
 
 $collection = new \Translator\Collection();
 $collection->add($translation);

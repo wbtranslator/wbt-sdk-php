@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$translator = new \Translator\Translator(API_KEY);
+$translator = new \Translator\Translator();
 $result = $translator->byLanguage('be');
 
 var_dump($result);

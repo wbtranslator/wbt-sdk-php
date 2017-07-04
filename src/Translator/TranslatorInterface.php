@@ -41,5 +41,5 @@ interface TranslatorInterface
      * @param Collection|Translation[] $translations
      * @return bool
      */
-    public function send(Collection $translations);
+    public function send(Collection $translations): bool;
 }
