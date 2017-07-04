@@ -14,7 +14,10 @@ class Translator extends BaseAbstract implements TranslatorInterface
             'language_code' => $language,
             'group_name' => empty($group) ? null : $group->getName(),
         ]]);
-        $data = json_decode($response->getBody(), true);
+
+        if ($response) {
+            $data = json_decode($response->getBody(), true);
+        }
 
         return !empty($data['data'][0]['translations'][0]['value']) ?
             $data['data'][0]['translations'][0]['value'] : '';
@@ -25,13 +28,16 @@ class Translator extends BaseAbstract implements TranslatorInterface
         $response = $this->getClient()->get('translations', ['query' => [
             'language_code' => $language,
         ]]);
-        $data = json_decode($response->getBody());
 
-        if (!empty($data->data)) {
-            foreach ($data->data as $val) {
-                if (!empty($val->translations)) {
-                    foreach ($val->translations as $v) {
-                        $collections[] = $this->transformTranslation($val, $v);
+        if ($response) {
+            $data = json_decode($response->getBody());
+
+            if (!empty($data->data)) {
+                foreach ($data->data as $val) {
+                    if (!empty($val->translations)) {
+                        foreach ($val->translations as $v) {
+                            $collections[] = $this->transformTranslation($val, $v);
+                        }
                     }
                 }
             }
@@ -45,13 +51,16 @@ class Translator extends BaseAbstract implements TranslatorInterface
         $response = $this->getClient()->get('translations', ['query' => [
             'group_name' => $group->getName(),
         ]]);
-        $data = json_decode($response->getBody());
 
-        if (!empty($data->data)) {
-            foreach ($data->data as $val) {
-                if (!empty($val->translations)) {
-                    foreach ($val->translations as $v) {
-                        $collections[] = $this->transformTranslation($val, $v);
+        if ($response) {
+            $data = json_decode($response->getBody());
+
+            if (!empty($data->data)) {
+                foreach ($data->data as $val) {
+                    if (!empty($val->translations)) {
+                        foreach ($val->translations as $v) {
+                            $collections[] = $this->transformTranslation($val, $v);
+                        }
                     }
                 }
             }
@@ -63,13 +72,16 @@ class Translator extends BaseAbstract implements TranslatorInterface
     public function all(): Collection
     {
         $response = $this->getClient()->get('translations');
-        $data = json_decode($response->getBody());
 
-        if (!empty($data->data)) {
-            foreach ($data->data as $val) {
-                if (!empty($val->translations)) {
-                    foreach ($val->translations as $v) {
-                        $collections[] = $this->transformTranslation($val, $v);
+        if ($response) {
+            $data = json_decode($response->getBody());
+
+            if (!empty($data->data)) {
+                foreach ($data->data as $val) {
+                    if (!empty($val->translations)) {
+                        foreach ($val->translations as $v) {
+                            $collections[] = $this->transformTranslation($val, $v);
+                        }
                     }
                 }
             }
@@ -95,9 +107,12 @@ class Translator extends BaseAbstract implements TranslatorInterface
             'form_params' => ['data' => $params]
         ]);
 
-        $data = json_decode($response->getBody());
+        if ($response) {
+            $data = json_decode($response->getBody());
+            return empty($data->data->count) ? false : true;
+        }
 
-        return empty($data->data->count) ? false : true;
+        return false;
     }
 
     protected function transformTranslation($abstract, $translation)

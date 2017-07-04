@@ -3,6 +3,8 @@
 namespace Translator\Http;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use Translator\Exceptions\TranslatorValidationException;
 
 class GuzzleHttpClient extends Client
 {
@@ -19,6 +21,17 @@ class GuzzleHttpClient extends Client
     {
         $uri = $this->token . '/' . ltrim($uri, '/');
 
-        return parent::request($method, $uri, $options);
+        try {
+            return parent::request($method, $uri, $options);
+        } catch (ClientException $e) {
+            $body = json_decode($e->getResponse()->getBody(), true);
+
+            if ($e->getResponse()->getStatusCode() == 422) {
+                $message = !empty($body['message']) ? is_array($body['message'])
+                    ? $body['message'][key($body['message'])][0] : $body : '';
+
+                throw new TranslatorValidationException($message);
+            }
+        }
     }
 }
