@@ -1,5 +1,5 @@
 {
-    "name": "fwt-sdk-php/translator",
+    "name": "translator/fwt-sdk-php",
     "type": "library",
     "authors": [
         {
@@ -7,13 +7,9 @@
             "email": "sergiy@futurenet.club"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": "^7.0",
     	"guzzlehttp/guzzle": "^6.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4"
     },
     "autoload": {
         "psr-4": {
