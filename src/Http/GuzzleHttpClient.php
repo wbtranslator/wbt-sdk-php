@@ -4,7 +4,10 @@ namespace Translator\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Translator\Exceptions\TranslatorException;
+use Translator\Exceptions\TranslatorConnectException;
 use Translator\Exceptions\TranslatorValidationException;
+use Translator\Exceptions\TranslatorAuthorizationException;
 
 class GuzzleHttpClient extends Client
 {
@@ -23,13 +26,23 @@ class GuzzleHttpClient extends Client
 
         try {
             return parent::request($method, $uri, $options);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             $body = json_decode($e->getResponse()->getBody(), true);
+            $message = !empty($body['message']) ? $body['message'] : '';
+
+            if ($e->getResponse()->getStatusCode() == 401) {
+                throw new TranslatorAuthorizationException($message);
+            }
 
             if ($e->getResponse()->getStatusCode() == 422) {
-                $message = !empty($body['message']) ? $body['message'] : '';
                 throw new TranslatorValidationException($message);
             }
+
+            throw new TranslatorConnectException($e->getMessage());
+        }
+        catch (\Exception $e) {
+            throw new TranslatorException($e->getMessage());
         }
     }
 }

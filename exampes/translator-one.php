@@ -6,5 +6,4 @@ require_once dirname(__FILE__) . '/config.php';
 
 $translator = new \Translator\Translator();
 $result = $translator->one('teetetetet', 'be');
-
 var_dump($result);
