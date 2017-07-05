@@ -5,8 +5,20 @@ namespace Translator;
 use Translator\Group\GroupInterface;
 use Translator\Translator\TranslatorInterface;
 
+/**
+ * Class Translator
+ * @package Translator
+ */
 class Translator extends BaseAbstract implements TranslatorInterface
 {
+    /**
+     * Get one translation.
+     *
+     * @param $abstractName
+     * @param $language
+     * @param GroupInterface|null $group
+     * @return string
+     */
     public function one($abstractName, $language, GroupInterface $group = null): string
     {
         $response = $this->getClient()->get('translations', ['query' => [
@@ -23,6 +35,12 @@ class Translator extends BaseAbstract implements TranslatorInterface
             $data['data'][0]['translations'][0]['value'] : '';
     }
 
+    /**
+     * Get translation by language.
+     *
+     * @param string $language
+     * @return Collection
+     */
     public function byLanguage($language): Collection
     {
         $response = $this->getClient()->get('translations', ['query' => [
@@ -46,6 +64,12 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return new Collection(empty($collections) ? [] : $collections);
     }
 
+    /**
+     * Get translation by group.
+     *
+     * @param GroupInterface $group
+     * @return Collection
+     */
     public function byGroup(GroupInterface $group): Collection
     {
         $response = $this->getClient()->get('translations', ['query' => [
@@ -69,6 +93,11 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return new Collection(empty($collections) ? [] : $collections);
     }
 
+    /**
+     * Get all project translations.
+     *
+     * @return Collection
+     */
     public function all(): Collection
     {
         $response = $this->getClient()->get('translations');
@@ -90,6 +119,12 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return new Collection(empty($collections) ? [] : $collections);
     }
 
+    /**
+     * Send abstract name with original value to WEB Translator.
+     *
+     * @param Collection $translations
+     * @return bool
+     */
     public function send(Collection $translations): bool
     {
         $params = [];
@@ -115,6 +150,11 @@ class Translator extends BaseAbstract implements TranslatorInterface
         return false;
     }
 
+    /**
+     * @param $abstract
+     * @param $translation
+     * @return Translation
+     */
     protected function transformTranslation($abstract, $translation)
     {
         return (new Translation())
