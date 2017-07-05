@@ -2,28 +2,19 @@
 ### Examples
 Get all translations
 ```
-$apiKey = 'PROJECT_API_KEY';
-$translator = new \Translator\Translator($apiKey);
+$translator = new \Translator\Translator('PROJECT_API_KEY');
 $result = $translator->all();
 ```
 Send abstraction
 ```
-$apiKey = 'PROJECT_API_KEY';
-
-$group = new \Translator\Group('category_adv');
-
-$translator = new \Translator\Translator();
-
 $translation = new \Translator\Translation();
 $translation->setAbstractName('test_abstract_name');
 $translation->setOriginalValue('Hello!');
 $translation->setComment('Comment to abstraction');
-$translation->addGroup($group);
+$translation->addGroup(new \Translator\Group('category_adv'));
 
-$collection = new \Translator\Collection();
-$collection->add($translation);
-
-$result = $translator->send($collection);
+$translator = new \Translator\Translator('PROJECT_API_KEY');
+$translator->send(new \Translator\Collection([$translation]));
 ```
 
 Other examples can viewed in folder ./examples/ 
