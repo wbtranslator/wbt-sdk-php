@@ -9,10 +9,21 @@ use Translator\Exceptions\TranslatorConnectException;
 use Translator\Exceptions\TranslatorValidationException;
 use Translator\Exceptions\TranslatorAuthorizationException;
 
+/**
+ * Class GuzzleHttpClient
+ * @package Translator
+ */
 class GuzzleHttpClient extends Client
 {
+    /**
+     * @var string $token
+     */
     protected $token;
 
+    /**
+     * @param string $token
+     * @return $this
+     */
     public function setToken($token)
     {
         $this->token = $token;
@@ -20,6 +31,16 @@ class GuzzleHttpClient extends Client
         return $this;
     }
 
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array $options
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws TranslatorAuthorizationException
+     * @throws TranslatorConnectException
+     * @throws TranslatorException
+     * @throws TranslatorValidationException
+     */
     public function request($method, $uri = '', array $options = [])
     {
         $uri = $this->token . '/' . ltrim($uri, '/');
