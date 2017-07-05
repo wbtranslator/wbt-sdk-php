@@ -27,9 +27,7 @@ class GuzzleHttpClient extends Client
             $body = json_decode($e->getResponse()->getBody(), true);
 
             if ($e->getResponse()->getStatusCode() == 422) {
-                $message = !empty($body['message']) ? is_array($body['message'])
-                    ? $body['message'][key($body['message'])][0] : $body : '';
-
+                $message = !empty($body['message']) ? $body['message'] : '';
                 throw new TranslatorValidationException($message);
             }
         }
