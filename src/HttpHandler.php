@@ -27,6 +27,7 @@ class HttpHandler
 
     /**
      * @param \GuzzleHttp\ClientInterface $client
+     * @param string|null $token
      */
     public function __construct(ClientInterface $client = null, $token = null)
     {
@@ -47,7 +48,8 @@ class HttpHandler
      */
     public static function getBaseApiUrl()
     {
-        return getenv('TRANSLATOR_BASE_API_URL') ? getenv('TRANSLATOR_BASE_API_URL') : self::BASE_API_URL;
+        return getenv('TRANSLATOR_BASE_API_URL')
+            ? getenv('TRANSLATOR_BASE_API_URL') : self::BASE_API_URL;
     }
 
     /**

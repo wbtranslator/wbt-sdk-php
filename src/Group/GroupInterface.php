@@ -17,5 +17,5 @@ interface GroupInterface
      * @param $name
      * @return self
      */
-    public static function create($name);
+    //public static function create($name);
 }
