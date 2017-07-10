@@ -23,12 +23,24 @@ class Groups extends Resource implements ResourceInterface
     }
 
     /**
-     * @param Collection $translations
+     * @param Collection $groups
      * @return bool
      */
-    public function create(Collection $translations): bool
+    public function create(Collection $groups): bool
     {
-        return true;
+        $params = [];
+
+        foreach ($groups as $group) {
+            $params[] = [
+                'name' => $group->getName()
+            ];
+        }
+
+        $data = $this->request->send('groups/create', 'POST', [
+            'form_params' => ['data' => $params]
+        ]);
+
+        return empty($data->count) ? false : true;
     }
 
     /**

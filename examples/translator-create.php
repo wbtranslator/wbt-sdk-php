@@ -1,6 +1,5 @@
 <?php
 
-use WebTranslator\WebTranslator;
 use WebTranslator\Group;
 use WebTranslator\Translation;
 use WebTranslator\Collection;
@@ -11,7 +10,7 @@ try {
     $group = new Group('test_category');
 
     $translation = new Translation();
-    $translation->setAbstractName('test_abstract_name2');
+    $translation->setAbstractName('test_abstract_name222');
     $translation->setOriginalValue('Test Original Value');
     $translation->setComment('Test Comment');
     $translation->addGroup($group);
@@ -20,7 +19,6 @@ try {
     $collection->add($translation);
 
     // Send translation
-    $translator = new WebTranslator(TRANSLATOR_API_KEY);
     $result = $translator->translations()->create($collection);
 
     var_dump($result);

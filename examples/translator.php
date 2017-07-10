@@ -1,14 +1,10 @@
 <?php
 
-use WebTranslator\WebTranslator;
 use WebTranslator\Group;
-use WebTranslator\Collection;
 
 require_once dirname(__FILE__) . '/config.php';
 
 try {
-    $translator = new WebTranslator(TRANSLATOR_API_KEY);
-
     $result = $translator->translations()->all();
     var_dump($result);
 
