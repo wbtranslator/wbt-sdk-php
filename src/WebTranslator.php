@@ -1,83 +1,129 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: future
- * Date: 05.07.17
- * Time: 22:04
- */
 
 namespace Translator;
 
-use Doctrine\Common\Collections\Collection;
-use Translator\Interfaces\CriteriaInterface;
-use Translator\Interfaces\HttpClientInterface;
+use Translator\Interfaces\RequestInterface;
+use Translator\Interfaces\GroupInterface;
 use Translator\Interfaces\TranslationInterface;
-use Translator\Interfaces\TranslatorInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use Translator\Resources\Groups;
+use Translator\Resources\Translations;
 
 /**
  * Class WebTranslator
+ *
  * @package Translator
  */
-class WebTranslator implements TranslatorInterface
+class WebTranslator
 {
     /**
-     * @var HttpClientInterface
+     * @const string Version number of the Translator PHP SDK.
      */
-    private $httpClient;
+    const VERSION = '0.0.2';
 
     /**
-     * TranslatorManager constructor.
+     * @const string Default api endpoint.
+     */
+    const ENDPOINT = 'http://fnukraine.pp.ua/api/project/';
+
+    /**
+     * @var ClientInterface The Translator Http Client service.
+     */
+    protected $client;
+
+    /**
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
+     * @var RequestInterface
+     */
+    protected $request;
+
+    /**
+     * @var GroupInterface Project Groups
+     */
+    protected $groups;
+
+    /**
+     * @var TranslationInterface Project Translations
+     */
+    protected $translations;
+
+    /**
+     * WebTranslator constructor.
      *
-     * @param $httpClient
+     * @param string $apiKey
+     * @param ClientInterface|null $client
+     * @internal param array $config
      */
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct($apiKey, ClientInterface $client = null)
     {
-        $this->httpClient = $httpClient;
+        $this->apiKey = $apiKey;
+
+        $this->client = $client ? $client : new Client([
+            'base_uri' => self::ENDPOINT
+        ]);
     }
 
     /**
-     * @param CriteriaInterface|null $criteria
-     * @return Collection
+     * Return Api Key.
+     *
+     * @return string
      */
-    public function byCriteria(CriteriaInterface $criteria = null)
+    public function getApiKey()
     {
-        // TODO: Implement byCriteria() method.
+        return $this->apiKey;
     }
 
     /**
-     * @param string $language
-     * @return Collection|TranslationInterface[]
+     * Returns the Http Client service.
+     *
+     * @return ClientInterface
      */
-    public function byLanguage($language)
+    public function getClient()
     {
-        return $this->byCriteria(new Criteria($language));
+        return $this->client;
     }
 
     /**
-     * @param string $group
-     * @return Collection|TranslationInterface[]
+     * Returns Request.
+     *
+     * @return RequestInterface
      */
-    public function byGroup($group)
+    public function request()
     {
-        return $this->byCriteria(new Criteria(null, $group));
+        if (null === $this->request) {
+            $this->request = new Request($this->getClient(), $this->getApiKey());
+        }
+        return $this->request;
     }
 
     /**
-     * @param string $abstractName
-     * @param string $language
-     * @param string $group
-     * @return string|null
+     * Returns Project Groups.
+     *
+     * @return GroupInterface
      */
-    public function one($abstractName, $language, $group)
+    public function groups()
     {
-        return $this->byCriteria(new Criteria($language, $group, $abstractName))->first();
+        if (null === $this->groups) {
+            $this->groups = new Groups($this->request());
+        }
+        return $this->groups;
     }
 
     /**
-     * @return Collection|TranslationInterface[]
+     * Returns Project Translations.
+     *
+     * @return TranslationInterface
      */
-    public function all()
+    public function translations()
     {
-        return $this->byCriteria();
+        if (null === $this->translations) {
+            $this->translations = new Translations($this->request());
+        }
+        return $this->translations;
     }
 }
