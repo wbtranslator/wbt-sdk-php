@@ -26,11 +26,11 @@ class Groups extends Resource implements ResourceInterface
      * @param Collection $translations
      * @return bool
      */
-    public function send(Collection $translations): bool
+    public function create(Collection $translations): bool
     {
         return true;
     }
-    
+
     /**
      * @param $data
      * @return Collection

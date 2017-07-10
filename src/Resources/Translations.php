@@ -66,7 +66,7 @@ class Translations extends Resource implements ResourceInterface
      * @param Collection $translations Create Project abstractions
      * @return bool
      */
-    public function send(Collection $translations): bool
+    public function create(Collection $translations): bool
     {
         $params = [];
 

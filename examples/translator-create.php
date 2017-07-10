@@ -21,7 +21,7 @@ try {
 
     // Send translation
     $translator = new WebTranslator(TRANSLATOR_API_KEY);
-    $result = $translator->translations()->send($collection);
+    $result = $translator->translations()->create($collection);
 
     var_dump($result);
 } catch (\Exception $e) {
