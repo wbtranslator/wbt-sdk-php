@@ -4,11 +4,15 @@ namespace WebTranslator;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use WebTranslator\Interfaces\RequestInterface;
-use WebTranslator\Interfaces\GroupInterface;
-use WebTranslator\Interfaces\TranslationInterface;
-use WebTranslator\Resources\Groups;
-use WebTranslator\Resources\Translations;
+use WebTranslator\Interfaces\{
+    RequestInterface,
+    GroupInterface,
+    TranslationInterface
+};
+use WebTranslator\Resources\{
+    Groups,
+    Translations
+};
 
 /**
  * Class WebTranslator
@@ -98,6 +102,7 @@ class WebTranslator
         if (null === $this->request) {
             $this->request = new Request($this->getClient(), $this->getApiKey());
         }
+
         return $this->request;
     }
 
@@ -111,6 +116,7 @@ class WebTranslator
         if (null === $this->groups) {
             $this->groups = new Groups($this->request());
         }
+
         return $this->groups;
     }
 
@@ -124,6 +130,7 @@ class WebTranslator
         if (null === $this->translations) {
             $this->translations = new Translations($this->request());
         }
+
         return $this->translations;
     }
 }
