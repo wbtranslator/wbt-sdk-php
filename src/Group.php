@@ -2,10 +2,11 @@
 
 namespace Translator;
 
-use Translator\Group\GroupInterface;
+use Translator\Interfaces\GroupInterface;
 
 /**
  * Class Group
+ *
  * @package Translator
  */
 class Group implements GroupInterface
@@ -17,6 +18,7 @@ class Group implements GroupInterface
 
     /**
      * Group constructor.
+     *
      * @param null $name
      */
     public function __construct($name = null)
