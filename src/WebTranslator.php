@@ -29,7 +29,7 @@ class WebTranslator
     /**
      * @const string Default api endpoint.
      */
-    const ENDPOINT = 'http://fnukraine.pp.ua/api/project/';
+    const API_URL = 'http://fnukraine.pp.ua/api/project/';
 
     /**
      * @var ClientInterface The Translator Http Client service.
@@ -68,7 +68,7 @@ class WebTranslator
         $this->apiKey = $apiKey;
 
         $this->client = $client ? $client : new Client([
-            'base_uri' => self::ENDPOINT
+            'base_uri' => self::API_URL
         ]);
     }
 

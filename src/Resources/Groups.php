@@ -17,16 +17,14 @@ class Groups extends ResourceAbstract
      */
     public function all(): Collection
     {
-        $data = $this->request->send('groups');
-
-        return $this->transformGroupResponse($data);
+        return $this->byCriteria('groups');
     }
 
     /**
      * @param $data
      * @return Collection
      */
-    protected function transformGroupResponse($data): Collection
+    protected function transformResponse($data): Collection
     {
         $collection = new Collection();
 

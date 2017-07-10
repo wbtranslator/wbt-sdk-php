@@ -2,9 +2,11 @@
 
 namespace WebTranslator\Resources;
 
-use WebTranslator\Collection;
-use WebTranslator\Translation;
-use WebTranslator\Group;
+use WebTranslator\{
+    Collection,
+    Translation,
+    Group
+};
 
 /**
  * Class Translations
@@ -13,14 +15,14 @@ use WebTranslator\Group;
  */
 class Translations extends ResourceAbstract
 {
+    protected $endpoint = 'translations';
+
     /**
      * @return Collection
      */
     public function all(): Collection
     {
-        $data = $this->request->send('translations');
-
-        return $this->transformTranslationResponse($data);
+        return $this->byCriteria($this->endpoint);
     }
 
     /**
@@ -29,11 +31,16 @@ class Translations extends ResourceAbstract
      */
     public function byLanguage($language): Collection
     {
-        $data = $this->request->send('translations', 'GET', ['query' => [
-            'language_code' => $language,
-        ]]);
+        return $this->byCriteria($this->endpoint, ['language_code' => $language]);
+    }
 
-        return $this->transformTranslationResponse($data);
+    /**
+     * @param Group $group
+     * @return Collection
+     */
+    public function byGroup(Group $group): Collection
+    {
+        return $this->byCriteria($this->endpoint, ['group_name' => $group->getName()]);
     }
 
     /**
@@ -44,28 +51,13 @@ class Translations extends ResourceAbstract
      */
     public function one($abstractName, $language, Group $group = null): string
     {
-        $data = $this->request->send('translations', 'GET', ['query' => [
+        $data = $this->byCriteria($this->endpoint, [
             'abstract_name' => $abstractName,
             'language_code' => $language,
             'group_name' => $group ? $group->getName() : null,
-        ]]);
-
-        $data = $this->transformTranslationResponse($data);
+        ]);
 
         return !empty($data->first()) ? $data->first()->getTranslation() : '';
-    }
-
-    /**
-     * @param Group $group
-     * @return Collection
-     */
-    public function byGroup(Group $group): Collection
-    {
-        $data = $this->request->send('translations', 'GET', ['query' => [
-            'group_name' => $group->getName(),
-        ]]);
-
-        return $this->transformTranslationResponse($data);
     }
 
     /**
@@ -81,7 +73,7 @@ class Translations extends ResourceAbstract
      * @param $data
      * @return Collection
      */
-    protected function transformTranslationResponse($data): Collection
+    protected function transformResponse($data): Collection
     {
         $collection = new Collection();
 
