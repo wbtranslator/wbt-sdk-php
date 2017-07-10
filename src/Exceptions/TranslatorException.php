@@ -19,6 +19,8 @@ class TranslatorException extends \Exception
      */
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
+        $message = is_object($message) ? (array) $message : $message;
+
         $message = is_array($message) ? !empty($message[key($message)][0])
             ? $message[key($message)][0] : '' : $message;
 
