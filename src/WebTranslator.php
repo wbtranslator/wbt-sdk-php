@@ -1,14 +1,14 @@
 <?php
 
-namespace Translator;
+namespace WebTranslator;
 
-use Translator\Interfaces\RequestInterface;
-use Translator\Interfaces\GroupInterface;
-use Translator\Interfaces\TranslationInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Translator\Resources\Groups;
-use Translator\Resources\Translations;
+use WebTranslator\Interfaces\RequestInterface;
+use WebTranslator\Interfaces\GroupInterface;
+use WebTranslator\Interfaces\TranslationInterface;
+use WebTranslator\Resources\Groups;
+use WebTranslator\Resources\Translations;
 
 /**
  * Class WebTranslator

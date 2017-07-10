@@ -1,9 +1,9 @@
 <?php
 
-namespace Translator;
+namespace WebTranslator;
 
-use Translator\Interfaces\GroupInterface;
-use Translator\Interfaces\TranslationInterface;
+use WebTranslator\Interfaces\GroupInterface;
+use WebTranslator\Interfaces\TranslationInterface;
 
 /**
  * Class Translation

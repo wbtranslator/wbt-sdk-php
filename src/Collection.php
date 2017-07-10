@@ -1,6 +1,6 @@
 <?php
 
-namespace Translator;
+namespace WebTranslator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

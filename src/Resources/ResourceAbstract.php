@@ -1,8 +1,8 @@
 <?php
 
-namespace Translator\Resources;
+namespace WebTranslator\Resources;
 
-use Translator\Interfaces\RequestInterface;
+use WebTranslator\Interfaces\RequestInterface;
 
 abstract class ResourceAbstract
 {

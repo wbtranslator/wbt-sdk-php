@@ -1,9 +1,9 @@
 <?php
 
-namespace Translator\Resources;
+namespace WebTranslator\Resources;
 
-use Translator\Collection;
-use Translator\Group;
+use WebTranslator\Collection;
+use WebTranslator\Group;
 
 /**
  * Class Group

@@ -1,6 +1,6 @@
 <?php
 
-namespace Translator\Exceptions;
+namespace WebTranslator\Exceptions;
 
 /**
  * Class TranslatorConnectException

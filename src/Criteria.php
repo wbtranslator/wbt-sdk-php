@@ -6,7 +6,7 @@
  * Time: 22:05
  */
 
-namespace Translator;
+namespace WebTranslator;
 
 use Translator\Interfaces\CriteriaInterface;
 

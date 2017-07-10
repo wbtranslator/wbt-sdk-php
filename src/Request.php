@@ -1,11 +1,11 @@
 <?php
 
-namespace Translator;
+namespace WebTranslator;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
-use Translator\Interfaces\RequestInterface;
-use Translator\Exceptions\ {
+use WebTranslator\Interfaces\RequestInterface;
+use WebTranslator\Exceptions\ {
     TranslatorException,
     TranslatorConnectException,
     TranslatorValidationException,

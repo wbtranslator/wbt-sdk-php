@@ -1,6 +1,6 @@
 <?php
 
-namespace Translator\Interfaces;
+namespace WebTranslator\Interfaces;
 
 /**
  * Interface RequestInterface

@@ -1,10 +1,10 @@
 <?php
 
-namespace Translator\Resources;
+namespace WebTranslator\Resources;
 
-use Translator\Collection;
-use Translator\Translation;
-use Translator\Group;
+use WebTranslator\Collection;
+use WebTranslator\Translation;
+use WebTranslator\Group;
 
 /**
  * Class Translations

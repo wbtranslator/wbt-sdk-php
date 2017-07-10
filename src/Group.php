@@ -1,8 +1,8 @@
 <?php
 
-namespace Translator;
+namespace WebTranslator;
 
-use Translator\Interfaces\GroupInterface;
+use WebTranslator\Interfaces\GroupInterface;
 
 /**
  * Class Group

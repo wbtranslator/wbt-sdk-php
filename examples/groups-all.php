@@ -1,9 +1,11 @@
 <?php
 
+use \WebTranslator\WebTranslator;
+
 require_once dirname(__FILE__) . '/config.php';
 
 try {
-    $translator = new \Translator\WebTranslator(TRANSLATOR_API_KEY);
+    $translator = new WebTranslator(TRANSLATOR_API_KEY);
     $result = $translator->groups()->all();
     var_dump($result);
 } catch (\Exception $e) {
