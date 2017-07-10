@@ -17,4 +17,10 @@ interface ResourceInterface
      * @return Collection
      */
     public function byCriteria($endpoint, array $args = []): Collection;
+
+    /**
+     * @param Collection $translations
+     * @return bool
+     */
+    public function send(Collection $translations): bool;
 }

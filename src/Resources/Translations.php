@@ -63,12 +63,27 @@ class Translations extends Resource implements ResourceInterface
     }
 
     /**
-     * @param Collection $translations
+     * @param Collection $translations Create Project abstractions
      * @return bool
      */
     public function send(Collection $translations): bool
     {
-        return true;
+        $params = [];
+
+        foreach ($translations as $translation) {
+            $params[] = [
+                'name' => $translation->getAbstractName(),
+                'value' => $translation->getOriginalValue(),
+                'comment' => $translation->getComment(),
+                'group_name' => $translation->getGroup() ? $translation->getGroup()->getName() : null,
+            ];
+        }
+
+        $data = $this->request->send('abstractions/create', 'POST', [
+            'form_params' => ['data' => $params]
+        ]);
+
+        return empty($data->count) ? false : true;
     }
 
     /**

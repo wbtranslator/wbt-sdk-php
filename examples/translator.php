@@ -21,9 +21,6 @@ try {
     $result = $translator->translations()->one('test2', 'en');
     var_dump($result);
 
-    $result = $translator->translations()->send(new Collection());
-    var_dump($result);
-
 } catch (\Exception $e) {
     print $e->getMessage() . PHP_EOL;
 }

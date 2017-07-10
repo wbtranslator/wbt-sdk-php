@@ -28,6 +28,15 @@ class Resource implements ResourceInterface
     }
 
     /**
+     * @param Collection $translations
+     * @return bool
+     */
+    public function send(Collection $translations): bool
+    {
+        return true;
+    }
+
+    /**
      * @param string $endpoint
      * @param array $args
      * @return Collection
