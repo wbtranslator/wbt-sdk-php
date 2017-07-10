@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: future
- * Date: 05.07.17
- * Time: 21:39
- */
 
 namespace Translator\Interfaces;
 
 /**
  * Interface TranslationInterface
- * @package Translator\Interfaces
+ *
+ * @package Translator
  */
 interface TranslationInterface
 {
