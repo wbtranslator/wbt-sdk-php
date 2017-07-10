@@ -6,8 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use WebTranslator\Interfaces\{
     RequestInterface,
-    GroupInterface,
-    TranslationInterface
+    ResourceInterface
 };
 use WebTranslator\Resources\{
     Groups,
@@ -47,12 +46,17 @@ class WebTranslator
     protected $request;
 
     /**
-     * @var GroupInterface Project Groups
+     * @var ResourceInterface Project Groups
+     */
+    protected $resource;
+
+    /**
+     * @var ResourceInterface Project Groups
      */
     protected $groups;
 
     /**
-     * @var TranslationInterface Project Translations
+     * @var ResourceInterface Project Translations
      */
     protected $translations;
 
@@ -107,9 +111,21 @@ class WebTranslator
     }
 
     /**
+     * @return ResourceInterface
+     */
+    public function resource()
+    {
+        if (null === $this->resource) {
+            $this->resource = new Resource($this->request());
+        }
+
+        return $this->resource;
+    }
+
+    /**
      * Returns Project Groups.
      *
-     * @return GroupInterface
+     * @return ResourceInterface
      */
     public function groups()
     {
@@ -123,7 +139,7 @@ class WebTranslator
     /**
      * Returns Project Translations.
      *
-     * @return TranslationInterface
+     * @return ResourceInterface
      */
     public function translations()
     {

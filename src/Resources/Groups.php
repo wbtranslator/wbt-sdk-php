@@ -2,6 +2,8 @@
 
 namespace WebTranslator\Resources;
 
+use WebTranslator\Interfaces\ResourceInterface;
+use WebTranslator\Resource;
 use WebTranslator\Collection;
 use WebTranslator\Group;
 
@@ -10,7 +12,7 @@ use WebTranslator\Group;
  *
  * @package WebTranslator
  */
-class Groups extends ResourceAbstract
+class Groups extends Resource implements ResourceInterface
 {
     /**
      * @return Collection

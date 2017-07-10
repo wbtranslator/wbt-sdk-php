@@ -1,16 +1,16 @@
 <?php
 
-namespace WebTranslator\Resources;
+namespace WebTranslator;
 
 use WebTranslator\Interfaces\RequestInterface;
-use WebTranslator\Collection;
+use WebTranslator\Interfaces\ResourceInterface;
 
 /**
- * Class ResourceAbstract
+ * Class Resource
  *
  * @package WebTranslator
  */
-abstract class ResourceAbstract
+class Resource implements ResourceInterface
 {
     /**
      * @var RequestInterface
@@ -32,7 +32,7 @@ abstract class ResourceAbstract
      * @param array $args
      * @return Collection
      */
-    public function byCriteria($endpoint, array $args = [])
+    public function byCriteria($endpoint, array $args = []): Collection
     {
         $data = $this->request->send($endpoint, 'GET', ['query' => $args]);
 

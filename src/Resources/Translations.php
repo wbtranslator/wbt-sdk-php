@@ -2,6 +2,8 @@
 
 namespace WebTranslator\Resources;
 
+use WebTranslator\Interfaces\ResourceInterface;
+use WebTranslator\Resource;
 use WebTranslator\{
     Collection,
     Translation,
@@ -13,7 +15,7 @@ use WebTranslator\{
  *
  * @package WebTranslator
  */
-class Translations extends ResourceAbstract
+class Translations extends Resource implements ResourceInterface
 {
     protected $endpoint = 'translations';
 
