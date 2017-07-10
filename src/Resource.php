@@ -28,10 +28,10 @@ class Resource implements ResourceInterface
     }
 
     /**
-     * @param Collection $translations
+     * @param Collection $resources
      * @return bool
      */
-    public function create(Collection $translations): bool
+    public function create(Collection $resources): bool
     {
         return true;
     }

@@ -19,8 +19,8 @@ interface ResourceInterface
     public function byCriteria($endpoint, array $args = []): Collection;
 
     /**
-     * @param Collection $translations Create resource
+     * @param Collection $resources Create resource
      * @return bool
      */
-    public function create(Collection $translations): bool;
+    public function create(Collection $resources): bool;
 }
