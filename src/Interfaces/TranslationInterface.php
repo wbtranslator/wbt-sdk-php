@@ -5,27 +5,27 @@ namespace WebTranslator\Interfaces;
 /**
  * Interface TranslationInterface
  *
- * @package Translator
+ * @package WebTranslator
  */
 interface TranslationInterface
 {
     /**
      * @return string
      */
-    public function getAbstractName();
+    public function getAbstractName(): string;
 
     /**
-     * @return string|null
+     * @return GroupInterface|null
      */
-    public function getGroup();
-
-    /**
-     * @return string
-     */
-    public function getLanguage();
+    public function getGroup(): GroupInterface;
 
     /**
      * @return string
      */
-    public function getTranslation();
+    public function getLanguage(): string;
+
+    /**
+     * @return string
+     */
+    public function getTranslation(): string;
 }

@@ -5,7 +5,7 @@ namespace WebTranslator\Interfaces;
 /**
  * Interface RequestInterface
  *
- * @package Translator
+ * @package WebTranslator
  */
 interface RequestInterface
 {

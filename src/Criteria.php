@@ -12,7 +12,8 @@ use Translator\Interfaces\CriteriaInterface;
 
 /**
  * Class Criteria
- * @package Translator
+ *
+ * @package WebTranslator
  */
 class Criteria implements CriteriaInterface
 {

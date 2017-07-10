@@ -5,7 +5,7 @@ namespace WebTranslator\Interfaces;
 /**
  * Interface GroupInterface
  *
- * @package Translator
+ * @package WebTranslator
  */
 interface GroupInterface
 {

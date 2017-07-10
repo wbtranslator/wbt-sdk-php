@@ -8,7 +8,7 @@ use WebTranslator\Group;
 /**
  * Class Group
  *
- * @package Translator
+ * @package WebTranslator
  */
 class Groups extends ResourceAbstract
 {

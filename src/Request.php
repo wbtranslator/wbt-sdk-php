@@ -15,7 +15,7 @@ use WebTranslator\Exceptions\ {
 /**
  * Class Request
  *
- * @package Translator
+ * @package WebTranslator
  */
 class Request implements RequestInterface
 {

@@ -4,6 +4,11 @@ namespace WebTranslator\Resources;
 
 use WebTranslator\Interfaces\RequestInterface;
 
+/**
+ * Class ResourceAbstract
+ *
+ * @package WebTranslator
+ */
 abstract class ResourceAbstract
 {
     /**

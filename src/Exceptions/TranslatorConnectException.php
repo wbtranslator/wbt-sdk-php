@@ -5,7 +5,7 @@ namespace WebTranslator\Exceptions;
 /**
  * Class TranslatorConnectException
  *
- * @package Translator
+ * @package WebTranslator
  */
 class TranslatorConnectException extends TranslatorException
 {

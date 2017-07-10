@@ -7,7 +7,7 @@ use Throwable;
 /**
  * Class TranslatorException
  *
- * @package Translator
+ * @package WebTranslator
  */
 class TranslatorException extends \Exception
 {

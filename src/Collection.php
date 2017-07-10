@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class Collection
  *
- * @package Translator
+ * @package WebTranslator
  */
 class Collection extends ArrayCollection
 {

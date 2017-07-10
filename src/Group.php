@@ -7,7 +7,7 @@ use WebTranslator\Interfaces\GroupInterface;
 /**
  * Class Group
  *
- * @package Translator
+ * @package WebTranslator
  */
 class Group implements GroupInterface
 {

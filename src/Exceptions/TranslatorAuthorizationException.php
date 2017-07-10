@@ -5,7 +5,7 @@ namespace WebTranslator\Exceptions;
 /**
  * Class TranslatorAuthorizationException
  *
- * @package Translator
+ * @package WebTranslator
  */
 class TranslatorAuthorizationException extends TranslatorException
 {

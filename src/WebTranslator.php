@@ -17,7 +17,7 @@ use WebTranslator\Resources\{
 /**
  * Class WebTranslator
  *
- * @package Translator
+ * @package WebTranslator
  */
 class WebTranslator
 {

@@ -9,7 +9,7 @@ use WebTranslator\Group;
 /**
  * Class Translations
  *
- * @package Translator
+ * @package WebTranslator
  */
 class Translations extends ResourceAbstract
 {

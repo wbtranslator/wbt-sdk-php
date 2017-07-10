@@ -8,7 +8,7 @@ use WebTranslator\Interfaces\TranslationInterface;
 /**
  * Class Translation
  *
- * @package Translator
+ * @package WebTranslator
  */
 class Translation implements TranslationInterface
 {
