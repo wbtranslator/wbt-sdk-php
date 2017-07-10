@@ -6,6 +6,7 @@ use Throwable;
 
 /**
  * Class TranslatorException
+ *
  * @package Translator
  */
 class TranslatorException extends \Exception
