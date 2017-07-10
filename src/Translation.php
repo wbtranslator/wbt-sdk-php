@@ -2,11 +2,12 @@
 
 namespace Translator;
 
-use Translator\Group\GroupInterface;
-use Translator\Translation\TranslationInterface;
+use Translator\Interfaces\GroupInterface;
+use Translator\Interfaces\TranslationInterface;
 
 /**
  * Class Translation
+ *
  * @package Translator
  */
 class Translation implements TranslationInterface
