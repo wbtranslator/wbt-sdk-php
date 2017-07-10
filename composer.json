@@ -12,9 +12,17 @@
     	"guzzlehttp/guzzle": "^6.0",
         "doctrine/collections": "1.4.*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
     "autoload": {
         "psr-4": {
             "WebTranslator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WebTranslator\\Tests\\": "tests/"
         }
     }
 }
