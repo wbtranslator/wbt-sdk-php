@@ -69,11 +69,15 @@ class Request implements RequestInterface
             $body = \json_decode((string) $e->getResponse()->getBody());
 
             if ($e->getResponse()->getStatusCode() == 401) {
-                throw new TranslatorAuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!');
+                throw new TranslatorAuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!', 401);
             }
 
             if ($e->getResponse()->getStatusCode() == 422) {
-                throw new TranslatorValidationException(!empty($body->message) ? $body->message : 'Validation error!');
+                throw new TranslatorValidationException(!empty($body->message) ? $body->message : 'Validation error!', 422);
+            }
+
+            if ($e->getResponse()->getStatusCode() == 404) {
+                throw new TranslatorConnectException(!empty($body->message) ? $body->message : 'Page Not Found!', 404);
             }
 
             throw new TranslatorConnectException($e->getMessage());
