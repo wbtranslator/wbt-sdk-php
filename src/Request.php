@@ -8,6 +8,7 @@ use WebTranslator\Interfaces\RequestInterface;
 use WebTranslator\Exceptions\ {
     TranslatorException,
     TranslatorConnectException,
+    TranslatorPaymentException,
     TranslatorValidationException,
     TranslatorAuthorizationException
 };
@@ -68,19 +69,30 @@ class Request implements RequestInterface
         } catch (ClientException $e) {
             $body = \json_decode((string) $e->getResponse()->getBody());
 
-            if ($e->getResponse()->getStatusCode() == 401) {
-                throw new TranslatorAuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!', 401);
+            switch ($e->getResponse()->getStatusCode()) {
+                // Authorization Exception
+                case 401:
+                    throw new TranslatorAuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!', 401);
+                    break;
+    
+                // Payment Exception
+                case 402:
+                    throw new TranslatorPaymentException(!empty($body->message) ? [$body->message] : 'Payment error!', 402);
+                    break;
+                    
+                // Connect Exception
+                case 404:
+                    throw new TranslatorConnectException(!empty($body->message) ? $body->message : 'Page Not Found!', 404);
+                    break;
+    
+                // Validation Exception
+                case 422:
+                    throw new TranslatorValidationException(!empty($body->message) ? $body->message : 'Validation error!', 422);
+                    break;
+                    
+                default:
+                    throw new TranslatorConnectException($e->getMessage());
             }
-
-            if ($e->getResponse()->getStatusCode() == 422) {
-                throw new TranslatorValidationException(!empty($body->message) ? $body->message : 'Validation error!', 422);
-            }
-
-            if ($e->getResponse()->getStatusCode() == 404) {
-                throw new TranslatorConnectException(!empty($body->message) ? $body->message : 'Page Not Found!', 404);
-            }
-
-            throw new TranslatorConnectException($e->getMessage());
         } catch (\Exception $e) {
             throw new TranslatorException($e->getMessage());
         }
