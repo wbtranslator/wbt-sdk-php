@@ -31,7 +31,7 @@ class Group implements GroupInterface
      */
     public function getName(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
