@@ -15,9 +15,9 @@ interface TranslationInterface
     public function getAbstractName(): string;
 
     /**
-     * @return GroupInterface|null
+     * @return string
      */
-    public function getGroup(): GroupInterface;
+    public function getGroup(): string;
 
     /**
      * @return string

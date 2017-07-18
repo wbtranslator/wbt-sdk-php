@@ -2,7 +2,6 @@
 
 namespace WebTranslator;
 
-use WebTranslator\Interfaces\GroupInterface;
 use WebTranslator\Interfaces\TranslationInterface;
 
 /**
@@ -13,7 +12,7 @@ use WebTranslator\Interfaces\TranslationInterface;
 class Translation implements TranslationInterface
 {
     /**
-     * @var GroupInterface
+     * @var string
      */
     protected $group;
 
@@ -81,18 +80,18 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @return GroupInterface
+     * @return string
      */
-    public function getGroup(): GroupInterface
+    public function getGroup(): string
     {
-        return $this->group;
+        return (string) $this->group;
     }
 
     /**
-     * @param GroupInterface $group
+     * @param string $group
      * @return Translation
      */
-    public function addGroup(GroupInterface $group)
+    public function addGroup($group)
     {
         $this->group = $group;
 

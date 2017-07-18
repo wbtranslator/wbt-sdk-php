@@ -5,7 +5,6 @@ namespace WebTranslator\Resources;
 use WebTranslator\Interfaces\ResourceInterface;
 use WebTranslator\Resource;
 use WebTranslator\Collection;
-use WebTranslator\Group;
 
 /**
  * Class Group
@@ -32,7 +31,7 @@ class Groups extends Resource implements ResourceInterface
 
         foreach ($groups as $group) {
             $params[] = [
-                'name' => $group->getName()
+                'name' => $group
             ];
         }
 
@@ -52,7 +51,7 @@ class Groups extends Resource implements ResourceInterface
         $collection = new Collection();
 
         foreach ($data as $group) {
-            $collection->add(new Group($group->name));
+            $collection->add($group->name);
         }
 
         return $collection;

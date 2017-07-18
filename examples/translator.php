@@ -1,7 +1,5 @@
 <?php
 
-use WebTranslator\Group;
-
 require_once dirname(__FILE__) . '/config.php';
 
 try {
@@ -11,7 +9,7 @@ try {
     $result = $translator->translations()->byLanguage('en');
     var_dump($result);
 
-    $result = $translator->translations()->byGroup(new Group('cat'));
+    $result = $translator->translations()->byGroup('cat');
     var_dump($result);
 
     $result = $translator->translations()->one('test2', 'en');
