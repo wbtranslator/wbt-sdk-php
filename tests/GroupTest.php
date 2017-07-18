@@ -26,13 +26,9 @@ class GroupTest extends Mocks
         return $all;
     }
 
-    // todo:
     public function testCreate()
     {
-        $param = TestHelpers::getObject([['name' => 'cats'], ['name' => 'dogs']]);
-
-        $create = $this->group($param)->create($this->testAll());
-
+        $this->assertCount(2, $this->group($this->data)->create($this->testAll()));
     }
 
     public function testTransformResponse()
@@ -42,6 +38,5 @@ class GroupTest extends Mocks
         $transformResponse = TestHelpers::invokeMethod($group, 'transformResponse', [$this->data]);
 
         $this->assertCount(2, $transformResponse);
-
     }
 }

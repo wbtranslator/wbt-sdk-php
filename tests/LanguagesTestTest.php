@@ -2,27 +2,30 @@
 
 namespace WebTranslator\tests;
 
-use WebTranslator\Resources\Groups;
 use WebTranslator\Resources\Languages;
 
 class LanguagesTestTest extends Mocks
 {
+    protected $data;
+
+    protected function setUp()
+    {
+        $this->data = TestHelpers::getObject( ['languages' => [['code' => 'en'], ['code' => 'fr']]]);
+    }
+
     public function testAll()
     {
-        $param = TestHelpers::getObject( ['languages' => [['code' => 'en'], ['code' => 'fr']]]);
-
-        $all = $this->languages($param)->all();
+        $all = $this->languages($this->data)->all();
 
         $this->assertCount(2, $all);
     }
 
     public function testTransformResponse()
     {
-        $group = $this->createMock(Groups::class);
-        $data = TestHelpers::getObject(['data' => ['name' => 'cats'], ['name' => 'dogs']]);
+        $group = $this->createMock(Languages::class);
 
-        $transformResponse = TestHelpers::invokeMethod($group, 'transformResponse', [$data]);
+        $transformResponse = TestHelpers::invokeMethod($group, 'transformResponse', [$this->data]);
+
         $this->assertCount(2, $transformResponse);
-
     }
 }
