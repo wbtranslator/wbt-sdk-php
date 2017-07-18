@@ -5,12 +5,10 @@ namespace WebTranslator;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use WebTranslator\Interfaces\{
-    RequestInterface,
-    ResourceInterface
+    RequestInterface, ResourceInterface
 };
 use WebTranslator\Resources\{
-    Groups,
-    Translations
+    Groups, Languages, Translations
 };
 
 /**
@@ -59,7 +57,12 @@ class WebTranslator
      * @var ResourceInterface Project Translations
      */
     protected $translations;
-
+    
+    /**
+     * @var ResourceInterface Project Languages
+     */
+    protected $languages;
+    
     /**
      * WebTranslator constructor.
      *
@@ -148,5 +151,19 @@ class WebTranslator
         }
 
         return $this->translations;
+    }
+    
+    /**
+     * Returns Project Languages.
+     *
+     * @return ResourceInterface
+     */
+    public function languages()
+    {
+        if (null === $this->languages) {
+            $this->languages = new Languages($this->request());
+        }
+        
+        return $this->languages;
     }
 }
