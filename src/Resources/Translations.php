@@ -2,11 +2,11 @@
 
 namespace WebTranslator\Resources;
 
-use WebTranslator\Interfaces\ResourceInterface;
-use WebTranslator\Resource;
 use WebTranslator\{
     Collection, Translation
 };
+use WebTranslator\Interfaces\ResourceInterface;
+use WebTranslator\Resource;
 
 /**
  * Class Translations

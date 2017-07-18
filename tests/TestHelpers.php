@@ -28,8 +28,8 @@ class TestHelpers
      * @param array $array
      * @return object
      */
-    public static function getObject(array $array)
+    public static function getObject($array, $assoc = false)
     {
-        return json_decode(json_encode($array), FALSE);
+        return json_decode(json_encode($array), $assoc);
     }
 }

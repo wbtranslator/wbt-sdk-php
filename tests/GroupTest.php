@@ -19,16 +19,16 @@ class GroupTest extends Mocks
 
     public function testAll()
     {
-        $all = $this->group($this->data)->all();
+        $all = $this->groups($this->data)->all();
 
-        $this->assertCount(2, $this->group($this->data)->all());
+        $this->assertCount(2, $this->groups($this->data)->all());
 
         return $all;
     }
 
     public function testCreate()
     {
-        $this->assertCount(2, $this->group($this->data)->create($this->testAll()));
+        $this->assertCount(2, $this->groups($this->data)->create($this->testAll()));
     }
 
     public function testTransformResponse()
