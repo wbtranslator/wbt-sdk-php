@@ -5,9 +5,7 @@ namespace WebTranslator\Resources;
 use WebTranslator\Interfaces\ResourceInterface;
 use WebTranslator\Resource;
 use WebTranslator\{
-    Collection,
-    Translation,
-    Group
+    Collection, Translation
 };
 
 /**
@@ -37,26 +35,26 @@ class Translations extends Resource implements ResourceInterface
     }
 
     /**
-     * @param Group $group
+     * @param $group
      * @return Collection
      */
-    public function byGroup(Group $group): Collection
+    public function byGroup($group): Collection
     {
-        return $this->byCriteria($this->endpoint, ['group_name' => $group->getName()]);
+        return $this->byCriteria($this->endpoint, ['group_name' => $group]);
     }
 
     /**
      * @param $abstractName
      * @param $language
-     * @param Group|null  $group
+     * @param $group
      * @return string
      */
-    public function one($abstractName, $language, Group $group = null): string
+    public function one($abstractName, $language, $group = null): string
     {
         $data = $this->byCriteria($this->endpoint, [
             'abstract_name' => $abstractName,
             'language_code' => $language,
-            'group_name' => $group ? $group->getName() : null,
+            'group_name' => $group,
         ]);
 
         return !empty($data->first()) ? $data->first()->getTranslation() : '';
@@ -75,7 +73,7 @@ class Translations extends Resource implements ResourceInterface
                 'name' => $translation->getAbstractName(),
                 'value' => $translation->getOriginalValue(),
                 'comment' => $translation->getComment(),
-                'group_name' => $translation->getGroup() ? $translation->getGroup()->getName() : null,
+                'group_name' => $translation->getGroup(),
             ];
         }
 
@@ -100,7 +98,7 @@ class Translations extends Resource implements ResourceInterface
                     $translation = new Translation();
                     $translation->setAbstractName($abstraction->abstract_name)
                         ->setOriginalValue($abstraction->original_value)
-                        ->addGroup(new Group($abstraction->group))
+                        ->addGroup($abstraction->group)
                         ->setComment($translate->comment)
                         ->setLanguage($translate->language)
                         ->setTranslation($translate->value);

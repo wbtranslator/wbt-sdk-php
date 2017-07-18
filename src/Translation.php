@@ -2,7 +2,6 @@
 
 namespace WebTranslator;
 
-use WebTranslator\Interfaces\GroupInterface;
 use WebTranslator\Interfaces\TranslationInterface;
 
 /**
@@ -13,7 +12,7 @@ use WebTranslator\Interfaces\TranslationInterface;
 class Translation implements TranslationInterface
 {
     /**
-     * @var GroupInterface
+     * @var string
      */
     protected $group;
 
@@ -47,7 +46,7 @@ class Translation implements TranslationInterface
      */
     public function getAbstractName(): string
     {
-        return $this->abstractName;
+        return (string) $this->abstractName;
     }
 
     /**
@@ -66,7 +65,7 @@ class Translation implements TranslationInterface
      */
     public function getOriginalValue(): string
     {
-        return $this->originalValue;
+        return (string) $this->originalValue;
     }
 
     /**
@@ -81,18 +80,18 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @return GroupInterface
+     * @return string
      */
-    public function getGroup(): GroupInterface
+    public function getGroup(): string
     {
-        return $this->group;
+        return (string) $this->group;
     }
 
     /**
-     * @param GroupInterface $group
+     * @param string $group
      * @return Translation
      */
-    public function addGroup(GroupInterface $group)
+    public function addGroup($group)
     {
         $this->group = $group;
 
@@ -104,7 +103,7 @@ class Translation implements TranslationInterface
      */
     public function getComment(): string
     {
-        return $this->comment;
+        return (string) $this->comment;
     }
 
     /**
@@ -123,7 +122,7 @@ class Translation implements TranslationInterface
      */
     public function getLanguage(): string
     {
-        return $this->language;
+        return (string) $this->language;
     }
 
     /**
@@ -142,7 +141,7 @@ class Translation implements TranslationInterface
      */
     public function getTranslation(): string
     {
-        return $this->translation;
+        return (string) $this->translation;
     }
 
     /**
