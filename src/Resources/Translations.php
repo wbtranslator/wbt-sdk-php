@@ -62,9 +62,9 @@ class Translations extends Resource implements ResourceInterface
 
     /**
      * @param Collection $translations Create Project abstractions
-     * @return bool
+     * @return Collection
      */
-    public function create(Collection $translations): bool
+    public function create(Collection $translations): Collection
     {
         $params = [];
 
@@ -81,7 +81,7 @@ class Translations extends Resource implements ResourceInterface
             'form_params' => ['data' => $params]
         ]);
 
-        return empty($data->count) ? false : true;
+        return new Collection($data);
     }
 
     /**

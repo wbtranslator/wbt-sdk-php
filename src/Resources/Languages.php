@@ -27,14 +27,14 @@ class Languages extends Resource implements ResourceInterface
      */
     protected function transformResponse($data): Collection
     {
-        $languages = [];
+        $collection = new Collection();
         
         if (!empty($data->languages)) {
             foreach ($data->languages as $value) {
-                $languages[] = $value->code;
+                $collection->add($value->code);
             }
         }
 
-        return new Collection(array_unique($languages));
+        return $collection;
     }
 }
