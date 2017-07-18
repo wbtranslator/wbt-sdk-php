@@ -29,11 +29,11 @@ class Resource implements ResourceInterface
 
     /**
      * @param Collection $resources
-     * @return bool
+     * @return Collection
      */
-    public function create(Collection $resources): bool
+    public function create(Collection $resources): Collection
     {
-        return true;
+        return new Collection($resources);
     }
 
     /**
@@ -54,9 +54,6 @@ class Resource implements ResourceInterface
      */
     protected function transformResponse($data): Collection
     {
-        $collection = new Collection();
-        $collection->add($data);
-
-        return $collection;
+        return new Collection([$data]);
     }
 }

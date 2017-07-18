@@ -20,7 +20,7 @@ interface ResourceInterface
 
     /**
      * @param Collection $resources Create resource
-     * @return bool
+     * @return Collection
      */
-    public function create(Collection $resources): bool;
+    public function create(Collection $resources): Collection;
 }

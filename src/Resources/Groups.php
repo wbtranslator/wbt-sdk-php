@@ -20,12 +20,12 @@ class Groups extends Resource implements ResourceInterface
     {
         return $this->byCriteria('groups');
     }
-
+    
     /**
      * @param Collection $groups
-     * @return bool
+     * @return Collection
      */
-    public function create(Collection $groups): bool
+    public function create(Collection $groups): Collection
     {
         $params = [];
 
@@ -39,7 +39,7 @@ class Groups extends Resource implements ResourceInterface
             'form_params' => ['data' => $params]
         ]);
 
-        return empty($data->count) ? false : true;
+        return $this->transformResponse($data);
     }
 
     /**
