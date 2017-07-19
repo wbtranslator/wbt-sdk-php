@@ -15,6 +15,9 @@ use WebTranslator\Resource;
  */
 class Translations extends Resource implements ResourceInterface
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'translations';
 
     /**
@@ -61,8 +64,9 @@ class Translations extends Resource implements ResourceInterface
     }
 
     /**
-     * @param Collection $translations Create Project abstractions
-     * @return Collection
+     * Create Project abstractions
+     *
+     * @inheritdoc
      */
     public function create(Collection $translations): Collection
     {
@@ -85,8 +89,7 @@ class Translations extends Resource implements ResourceInterface
     }
 
     /**
-     * @param $data
-     * @return Collection
+     * @inheritdoc
      */
     protected function transformResponse($data): Collection
     {
