@@ -18,10 +18,10 @@ class TranslationTest extends Mocks
             'abstract_name' => 'abstract_name1',
             'original_value' => 'original_value1',
             'group' => 'group1',
-            'translations' => TestHelpers::toObject([[
+            'translations' => [[
                 'language' => 'ua',
                 'value' => 'value1'
-            ]])
+            ]]
         ]);
 
         $this->translations = $this->resources(Translations::class, [$this->data]);

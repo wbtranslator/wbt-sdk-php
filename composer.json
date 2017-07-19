@@ -7,6 +7,7 @@
             "email": "sergiy@futurenet.club"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": "^7",
     	"guzzlehttp/guzzle": "^6.0",
