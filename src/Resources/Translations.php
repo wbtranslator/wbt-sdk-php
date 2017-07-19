@@ -101,11 +101,17 @@ class Translations extends Resource implements ResourceInterface
                     $translation = new Translation();
                     $translation->setAbstractName($abstraction->abstract_name)
                         ->setOriginalValue($abstraction->original_value)
-                        ->addGroup($abstraction->group)
-                        ->setComment($translate->comment)
                         ->setLanguage($translate->language)
                         ->setTranslation($translate->value);
 
+                    if (isset($abstraction->group)) {
+                        $translation->addGroup($abstraction->group);
+                    }
+    
+                    if (isset($abstraction->comment)) {
+                        $translation->setComment($abstraction->comment);
+                    }
+                    
                     $collection->add($translation);
                 }
             }

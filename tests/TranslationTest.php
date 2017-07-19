@@ -22,7 +22,7 @@ class TranslationTest extends Mocks
         $translations->value = 'value1';
 
         $this->data = $object;
-
+       
         $this->translations = $this->translations([$object]);
     }
 

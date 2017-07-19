@@ -35,7 +35,7 @@ abstract class Mocks extends TestCase
      * @param $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    private function resources(string $className, $data)
+    protected function resources(string $className, $data)
     {
         return $this->getMockBuilder($className)
             ->setMethods(['__constructor'])
@@ -49,10 +49,10 @@ abstract class Mocks extends TestCase
      * @param $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function groups($data)
+    /*protected function groups($data)
     {
         return $this->resources(Groups::class, $data);
-    }
+    }*/
 
     /**
      * Mock Resources\Language with redefined method send
@@ -60,10 +60,10 @@ abstract class Mocks extends TestCase
      * @param $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function languages($data)
+    /*protected function languages($data)
     {
         return $this->resources(Languages::class, $data);
-    }
+    }*/
 
     /**
      * Mock Resources\Language with redefined method send
@@ -71,10 +71,8 @@ abstract class Mocks extends TestCase
      * @param $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function translations($data)
+    /*protected function translations($data)
     {
         return $this->resources(Translations::class, $data);
-    }
-
-
+    }*/
 }

@@ -2,6 +2,7 @@
 
 namespace WebTranslator\Tests;
 
+use WebTranslator\Collection;
 use WebTranslator\Resources\Groups;
 
 /**
@@ -15,22 +16,29 @@ class GroupTest extends Mocks
 
     protected function setUp()
     {
-        $this->data = TestHelpers::getObject(['data' => ['name' => 'cats'], ['name' => 'dogs']]);
-        $this->groups = $this->groups($this->data);
+        $this->data = TestHelpers::getObject([
+            'data' => ['name' => 'cats'], ['name' => 'dogs']
+        ]);
+        
+        $this->groups = $this->resources(Groups::class, $this->data);
     }
 
     public function testAll()
     {
-        $all = $this->groups->all();
+        $groups = $this->groups->all();
 
-        $this->assertCount(2, $all);
+        $this->assertCount(2, $groups);
 
-        return $all;
+        return $groups;
     }
-
-    public function testCreate()
+    
+    /**
+     * @depends testAll
+     * @param Collection $groups
+     */
+    public function testCreate($groups)
     {
-        $this->assertCount(2, $this->groups->create($this->testAll()));
+        $this->assertCount(2, $this->groups->create($groups));
     }
 
     public function testTransformResponse()
