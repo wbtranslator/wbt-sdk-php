@@ -1,12 +1,9 @@
 <?php
 
-namespace WebTranslator\tests;
+namespace WebTranslator\Tests\Helpers;
 
 use PHPUnit\Framework\TestCase;
 use WebTranslator\Interfaces\RequestInterface;
-use WebTranslator\Resources\Groups;
-use WebTranslator\Resources\Languages;
-use WebTranslator\Resources\Translations;
 
 abstract class Mocks extends TestCase
 {
@@ -42,37 +39,4 @@ abstract class Mocks extends TestCase
             ->setConstructorArgs([$this->requestSend($data)])
             ->getMock();
     }
-
-    /**
-     * Mock Resources\Groups with redefined method send
-     *
-     * @param $data
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    /*protected function groups($data)
-    {
-        return $this->resources(Groups::class, $data);
-    }*/
-
-    /**
-     * Mock Resources\Language with redefined method send
-     *
-     * @param $data
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    /*protected function languages($data)
-    {
-        return $this->resources(Languages::class, $data);
-    }*/
-
-    /**
-     * Mock Resources\Language with redefined method send
-     *
-     * @param $data
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    /*protected function translations($data)
-    {
-        return $this->resources(Translations::class, $data);
-    }*/
 }

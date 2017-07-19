@@ -1,9 +1,11 @@
 <?php
 
-namespace WebTranslator\tests;
+namespace WebTranslator\Tests;
 
 use WebTranslator\Collection;
 use WebTranslator\Resources\Translations;
+use WebTranslator\Tests\Helpers\Mocks;
+use WebTranslator\Tests\Helpers\TestHelpers;
 
 class TranslationTest extends Mocks
 {
@@ -12,18 +14,17 @@ class TranslationTest extends Mocks
 
     protected function setUp()
     {
-        $object = new \stdClass();
+        $this->data = TestHelpers::toObject([
+            'abstract_name' => 'abstract_name1',
+            'original_value' => 'original_value1',
+            'group' => 'group1',
+            'translations' => TestHelpers::toObject([[
+                'language' => 'ua',
+                'value' => 'value1'
+            ]])
+        ]);
 
-        $object->abstract_name = 'abstract_name1';
-        $object->original_value = 'original_value1';
-        $object->group = 'group1';
-        $object->translations = [$translations = new \stdClass()];
-        $translations->language = 'ua';
-        $translations->value = 'value1';
-
-        $this->data = $object;
-       
-        $this->translations = $this->translations([$object]);
+        $this->translations = $this->resources(Translations::class, [$this->data]);
     }
 
     public function testAll()
@@ -63,9 +64,13 @@ class TranslationTest extends Mocks
         $this->assertEquals($translation, $one);
     }
 
-    public function testCreate()
+    /**
+     * @depends testAll
+     * @param Collection $translations
+     */
+    public function testCreate($translations)
     {
-        $create = $this->translations->create($this->testAll());
+        $create = $this->translations->create($translations);
 
         $this->assertInstanceOf(Collection::class, $create);
         $this->assertCount(1, $create);
@@ -73,10 +78,9 @@ class TranslationTest extends Mocks
 
     public function testTransformResponse()
     {
-        $translations = $this->createMock(Translations::class);
         $collection = new Collection([$this->data]);
 
-        $transformResponse = TestHelpers::invokeMethod($translations, 'transformResponse', [$collection]);
+        $transformResponse = TestHelpers::invokeMethod($this->translations, 'transformResponse', [$collection]);
 
         $this->assertInstanceOf(Collection::class, $transformResponse);
         $this->assertCount(1, $transformResponse);
