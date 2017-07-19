@@ -22,8 +22,7 @@ class Groups extends Resource implements ResourceInterface
     }
     
     /**
-     * @param Collection $groups
-     * @return Collection
+     * @inheritdoc
      */
     public function create(Collection $groups): Collection
     {
@@ -43,8 +42,7 @@ class Groups extends Resource implements ResourceInterface
     }
 
     /**
-     * @param $data
-     * @return Collection
+     * @inheritdoc
      */
     protected function transformResponse($data): Collection
     {

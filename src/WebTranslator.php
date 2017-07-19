@@ -21,7 +21,7 @@ class WebTranslator
     /**
      * @const string Version number of the Translator PHP SDK.
      */
-    const VERSION = '0.0.2';
+    const VERSION = '0.0.3';
 
     /**
      * @const string Default api endpoint.
@@ -68,7 +68,6 @@ class WebTranslator
      *
      * @param string $apiKey
      * @param ClientInterface|null $client
-     * @internal param array $config
      */
     public function __construct($apiKey, ClientInterface $client = null)
     {
@@ -98,7 +97,15 @@ class WebTranslator
     {
         return $this->client;
     }
-
+    
+    /**
+     * @param RequestInterface $request
+     */
+    public function setRequest(RequestInterface $request)
+    {
+        $this->request = $request;
+    }
+    
     /**
      * Returns Request.
      *

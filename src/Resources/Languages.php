@@ -22,8 +22,7 @@ class Languages extends Resource implements ResourceInterface
     }
     
     /**
-     * @param $data
-     * @return Collection
+     * @inheritdoc
      */
     protected function transformResponse($data): Collection
     {
