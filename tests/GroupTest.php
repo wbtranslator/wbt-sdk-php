@@ -11,24 +11,26 @@ use WebTranslator\Resources\Groups;
 class GroupTest extends Mocks
 {
     protected $data;
+    protected $groups;
 
     protected function setUp()
     {
         $this->data = TestHelpers::getObject(['data' => ['name' => 'cats'], ['name' => 'dogs']]);
+        $this->groups = $this->groups($this->data);
     }
 
     public function testAll()
     {
-        $all = $this->groups($this->data)->all();
+        $all = $this->groups->all();
 
-        $this->assertCount(2, $this->groups($this->data)->all());
+        $this->assertCount(2, $all);
 
         return $all;
     }
 
     public function testCreate()
     {
-        $this->assertCount(2, $this->groups($this->data)->create($this->testAll()));
+        $this->assertCount(2, $this->groups->create($this->testAll()));
     }
 
     public function testTransformResponse()
