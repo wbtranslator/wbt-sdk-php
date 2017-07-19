@@ -13,7 +13,7 @@ abstract class Mocks extends TestCase
     /**
      * Get mock of RequestInterface with redefined send method
      *
-     * @param $data
+     * @param mixed $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
     private function requestSend($data)
@@ -32,7 +32,7 @@ abstract class Mocks extends TestCase
      * Mock with redefined method send
      *
      * @param string $className
-     * @param $data
+     * @param mixed $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
     private function resources(string $className, $data)
@@ -68,10 +68,10 @@ abstract class Mocks extends TestCase
     /**
      * Mock Resources\Language with redefined method send
      *
-     * @param $data
+     * @param array $data
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function translations($data)
+    protected function translations(array $data)
     {
         return $this->resources(Translations::class, $data);
     }

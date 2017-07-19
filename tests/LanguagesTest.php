@@ -4,13 +4,13 @@ namespace WebTranslator\tests;
 
 use WebTranslator\Resources\Languages;
 
-class LanguagesTestTest extends Mocks
+class LanguagesTest extends Mocks
 {
     protected $data;
 
     protected function setUp()
     {
-        $this->data = TestHelpers::getObject( ['languages' => [['code' => 'en'], ['code' => 'fr']]]);
+        $this->data = TestHelpers::getObject(['languages' => [['code' => 'en'], ['code' => 'fr']]]);
     }
 
     public function testAll()
