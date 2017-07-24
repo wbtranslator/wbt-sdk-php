@@ -1,5 +1,5 @@
 {
-    "name": "translator/fwt-sdk-php",
+    "name": "wbtranslator/wbt-sdk-php",
     "type": "library",
     "version": "0.0.3",
     "authors": [
