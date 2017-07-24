@@ -1,10 +1,11 @@
 <?php
 
-namespace Translator\Exceptions;
+namespace WebTranslator\Exceptions;
 
 /**
  * Class TranslatorValidationException
- * @package Translator
+ *
+ * @package WebTranslator
  */
 class TranslatorValidationException extends TranslatorException
 {

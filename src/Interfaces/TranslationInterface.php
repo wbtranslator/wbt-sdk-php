@@ -1,36 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: future
- * Date: 05.07.17
- * Time: 21:39
- */
 
-namespace Translator\Interfaces;
+namespace WebTranslator\Interfaces;
 
 /**
  * Interface TranslationInterface
- * @package Translator\Interfaces
+ *
+ * @package WebTranslator
  */
 interface TranslationInterface
 {
     /**
      * @return string
      */
-    public function getAbstractName();
-
-    /**
-     * @return string|null
-     */
-    public function getGroup();
+    public function getAbstractName(): string;
 
     /**
      * @return string
      */
-    public function getLanguage();
+    public function getGroup(): string;
 
     /**
      * @return string
      */
-    public function getTranslation();
+    public function getLanguage(): string;
+
+    /**
+     * @return string
+     */
+    public function getTranslation(): string;
 }

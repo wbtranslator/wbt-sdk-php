@@ -1,83 +1,176 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: future
- * Date: 05.07.17
- * Time: 22:04
- */
 
-namespace Translator;
+namespace WebTranslator;
 
-use Doctrine\Common\Collections\Collection;
-use Translator\Interfaces\CriteriaInterface;
-use Translator\Interfaces\HttpClientInterface;
-use Translator\Interfaces\TranslationInterface;
-use Translator\Interfaces\TranslatorInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use WebTranslator\Interfaces\{
+    RequestInterface, ResourceInterface
+};
+use WebTranslator\Resources\{
+    Groups, Languages, Translations
+};
 
 /**
  * Class WebTranslator
- * @package Translator
+ *
+ * @package WebTranslator
  */
-class WebTranslator implements TranslatorInterface
+class WebTranslator
 {
     /**
-     * @var HttpClientInterface
+     * @const string Version number of the Translator PHP SDK.
      */
-    private $httpClient;
+    const VERSION = '0.0.3';
 
     /**
-     * TranslatorManager constructor.
+     * @const string Default api endpoint.
+     */
+    const API_URL = 'http://fnukraine.pp.ua/api/project/';
+
+    /**
+     * @var ClientInterface The Translator Http Client service.
+     */
+    protected $client;
+
+    /**
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
+     * @var RequestInterface
+     */
+    protected $request;
+
+    /**
+     * @var ResourceInterface Project Groups
+     */
+    protected $resource;
+
+    /**
+     * @var ResourceInterface Project Groups
+     */
+    protected $groups;
+
+    /**
+     * @var ResourceInterface Project Translations
+     */
+    protected $translations;
+    
+    /**
+     * @var ResourceInterface Project Languages
+     */
+    protected $languages;
+    
+    /**
+     * WebTranslator constructor.
      *
-     * @param $httpClient
+     * @param string $apiKey
+     * @param ClientInterface|null $client
      */
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct($apiKey, ClientInterface $client = null)
     {
-        $this->httpClient = $httpClient;
+        $this->apiKey = $apiKey;
+
+        $this->client = $client ? $client : new Client([
+            'base_uri' => self::API_URL
+        ]);
     }
 
     /**
-     * @param CriteriaInterface|null $criteria
-     * @return Collection
+     * Return Api Key.
+     *
+     * @return string
      */
-    public function byCriteria(CriteriaInterface $criteria = null)
+    public function getApiKey()
     {
-        // TODO: Implement byCriteria() method.
+        return $this->apiKey;
     }
 
     /**
-     * @param string $language
-     * @return Collection|TranslationInterface[]
+     * Returns the Http Client service.
+     *
+     * @return ClientInterface
      */
-    public function byLanguage($language)
+    public function getClient()
     {
-        return $this->byCriteria(new Criteria($language));
+        return $this->client;
+    }
+    
+    /**
+     * @param RequestInterface $request
+     */
+    public function setRequest(RequestInterface $request)
+    {
+        $this->request = $request;
+    }
+    
+    /**
+     * Returns Request.
+     *
+     * @return RequestInterface
+     */
+    public function request()
+    {
+        if (null === $this->request) {
+            $this->request = new Request($this->getClient(), $this->getApiKey());
+        }
+
+        return $this->request;
     }
 
     /**
-     * @param string $group
-     * @return Collection|TranslationInterface[]
+     * @return ResourceInterface
      */
-    public function byGroup($group)
+    public function resource()
     {
-        return $this->byCriteria(new Criteria(null, $group));
+        if (null === $this->resource) {
+            $this->resource = new Resource($this->request());
+        }
+
+        return $this->resource;
     }
 
     /**
-     * @param string $abstractName
-     * @param string $language
-     * @param string $group
-     * @return string|null
+     * Returns Project Groups.
+     *
+     * @return ResourceInterface
      */
-    public function one($abstractName, $language, $group)
+    public function groups()
     {
-        return $this->byCriteria(new Criteria($language, $group, $abstractName))->first();
+        if (null === $this->groups) {
+            $this->groups = new Groups($this->request());
+        }
+
+        return $this->groups;
     }
 
     /**
-     * @return Collection|TranslationInterface[]
+     * Returns Project Translations.
+     *
+     * @return ResourceInterface
      */
-    public function all()
+    public function translations()
     {
-        return $this->byCriteria();
+        if (null === $this->translations) {
+            $this->translations = new Translations($this->request());
+        }
+
+        return $this->translations;
+    }
+    
+    /**
+     * Returns Project Languages.
+     *
+     * @return ResourceInterface
+     */
+    public function languages()
+    {
+        if (null === $this->languages) {
+            $this->languages = new Languages($this->request());
+        }
+        
+        return $this->languages;
     }
 }
