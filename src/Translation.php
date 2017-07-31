@@ -53,7 +53,7 @@ class Translation implements TranslationInterface
      * @param string $abstractName
      * @return Translation
      */
-    public function setAbstractName($abstractName)
+    public function setAbstractName(string $abstractName)
     {
         $this->abstractName = $abstractName;
 
@@ -65,14 +65,14 @@ class Translation implements TranslationInterface
      */
     public function getOriginalValue(): string
     {
-        return (string) $this->originalValue;
+        return $this->originalValue;
     }
 
     /**
      * @param string $originalValue
      * @return Translation
      */
-    public function setOriginalValue($originalValue)
+    public function setOriginalValue(string $originalValue)
     {
         $this->originalValue = $originalValue;
 
@@ -84,33 +84,33 @@ class Translation implements TranslationInterface
      */
     public function getGroup(): string
     {
-        return (string) $this->group;
+        return $this->group;
     }
-
+    
     /**
      * @param string $group
      * @return Translation
      */
-    public function addGroup($group)
+    public function setGroup(string $group)
     {
         $this->group = $group;
-
+        
         return $this;
     }
-
+    
     /**
      * @return string
      */
     public function getComment(): string
     {
-        return (string) $this->comment;
+        return $this->comment;
     }
 
     /**
      * @param string $comment
      * @return Translation
      */
-    public function setComment($comment)
+    public function setComment(string $comment)
     {
         $this->comment = $comment;
 
@@ -122,14 +122,14 @@ class Translation implements TranslationInterface
      */
     public function getLanguage(): string
     {
-        return (string) $this->language;
+        return $this->language;
     }
 
     /**
      * @param string $language
      * @return Translation
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language)
     {
         $this->language = $language;
 
@@ -141,14 +141,14 @@ class Translation implements TranslationInterface
      */
     public function getTranslation(): string
     {
-        return (string) $this->translation;
+        return $this->translation;
     }
 
     /**
      * @param string $translation
      * @return Translation
      */
-    public function setTranslation($translation)
+    public function setTranslation(string $translation)
     {
         $this->translation = $translation;
 
