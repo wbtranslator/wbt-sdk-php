@@ -9,7 +9,7 @@ $translation = new Translation();
 $translation->setAbstractName('test_abstract_name222a');
 $translation->setOriginalValue('Test Original Value');
 $translation->setComment('Test Comment');
-$translation->addGroup('test_category');
+$translation->setGroup('test_category');
 
 $collection = new Collection();
 $collection->add($translation);

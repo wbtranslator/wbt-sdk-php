@@ -105,7 +105,7 @@ class Translations extends Resource implements ResourceInterface
                         ->setTranslation($translate->value);
 
                     if (isset($abstraction->group)) {
-                        $translation->addGroup($abstraction->group);
+                        $translation->setGroup($abstraction->group);
                     }
     
                     if (isset($abstraction->comment)) {
