@@ -65,7 +65,7 @@ class Translation implements TranslationInterface
      */
     public function getOriginalValue(): string
     {
-        return $this->originalValue;
+        return (string) $this->originalValue;
     }
 
     /**
@@ -84,7 +84,7 @@ class Translation implements TranslationInterface
      */
     public function getGroup(): string
     {
-        return $this->group;
+        return (string) $this->group;
     }
     
     /**
@@ -103,7 +103,7 @@ class Translation implements TranslationInterface
      */
     public function getComment(): string
     {
-        return $this->comment;
+        return (string) $this->comment;
     }
 
     /**
@@ -122,7 +122,7 @@ class Translation implements TranslationInterface
      */
     public function getLanguage(): string
     {
-        return $this->language;
+        return (string) $this->language;
     }
 
     /**
@@ -141,7 +141,7 @@ class Translation implements TranslationInterface
      */
     public function getTranslation(): string
     {
-        return $this->translation;
+        return (string) $this->translation;
     }
 
     /**
