@@ -4,6 +4,7 @@ namespace WebTranslator;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use WebTranslator\Exceptions\TranslatorException;
 use WebTranslator\Interfaces\{
     RequestInterface, ResourceInterface
 };
@@ -63,16 +64,23 @@ class WebTranslator
      */
     protected $languages;
     
+    
     /**
      * WebTranslator constructor.
      *
-     * @param string $apiKey
+     * @param $apiKey
      * @param ClientInterface|null $client
+     *
+     * @throws TranslatorException
      */
     public function __construct($apiKey, ClientInterface $client = null)
     {
         $this->apiKey = $apiKey;
-
+    
+        if (!$this->apiKey) {
+            throw new TranslatorException('Required "apiKey" parameter!');
+        }
+        
         $this->client = $client ? $client : new Client([
             'base_uri' => self::API_URL
         ]);
