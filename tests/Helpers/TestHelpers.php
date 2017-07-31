@@ -1,6 +1,6 @@
 <?php
 
-namespace WebTranslator\Tests\Helpers;
+namespace WBTranslator\Tests\Helpers;
 
 class TestHelpers
 {

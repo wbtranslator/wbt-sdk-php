@@ -1,10 +1,10 @@
 <?php
 
-namespace WebTranslator\Tests;
+namespace WBTranslator\Tests;
 
-use WebTranslator\Resources\Languages;
-use WebTranslator\Tests\Helpers\Mocks;
-use WebTranslator\Tests\Helpers\TestHelpers;
+use WBTranslator\Resources\Languages;
+use WBTranslator\Tests\Helpers\Mocks;
+use WBTranslator\Tests\Helpers\TestHelpers;
 
 class LanguagesTest extends Mocks
 {

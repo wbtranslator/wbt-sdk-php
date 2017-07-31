@@ -1,11 +1,11 @@
 <?php
 
-namespace WebTranslator\Tests;
+namespace WBTranslator\Tests;
 
-use WebTranslator\Collection;
-use WebTranslator\Resources\Translations;
-use WebTranslator\Tests\Helpers\Mocks;
-use WebTranslator\Tests\Helpers\TestHelpers;
+use WBTranslator\Collection;
+use WBTranslator\Resources\Translations;
+use WBTranslator\Tests\Helpers\Mocks;
+use WBTranslator\Tests\Helpers\TestHelpers;
 
 class TranslationTest extends Mocks
 {
@@ -85,5 +85,4 @@ class TranslationTest extends Mocks
         $this->assertInstanceOf(Collection::class, $transformResponse);
         $this->assertCount(1, $transformResponse);
     }
-
 }

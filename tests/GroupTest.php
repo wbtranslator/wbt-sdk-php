@@ -1,11 +1,11 @@
 <?php
 
-namespace WebTranslator\Tests;
+namespace WBTranslator\Tests;
 
-use WebTranslator\Collection;
-use WebTranslator\Resources\Groups;
-use WebTranslator\Tests\Helpers\Mocks;
-use WebTranslator\Tests\Helpers\TestHelpers;
+use WBTranslator\Collection;
+use WBTranslator\Resources\Groups;
+use WBTranslator\Tests\Helpers\Mocks;
+use WBTranslator\Tests\Helpers\TestHelpers;
 
 class GroupTest extends Mocks
 {
