@@ -26,7 +26,7 @@ class WebTranslator
     /**
      * @const string Default api endpoint.
      */
-    const API_URL = 'http://fnukraine.pp.ua/api/project/';
+    const API_URL = 'http://wbtranslator.com/api/project/';
 
     /**
      * @var ClientInterface The Translator Http Client service.
