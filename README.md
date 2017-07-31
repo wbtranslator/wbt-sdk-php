@@ -1,11 +1,11 @@
-# Translator PHP SDK
+# WBTranslator PHP SDK
 ### Examples
 Get all translations
 ```
-use \WebTranslator\WebTranslator;
+use \WBTranslator\WBTranslatorSdk;
 
-$translator = new WebTranslator(TRANSLATOR_API_KEY);
-$result = $translator->translations()->all();
+$sdk = new WBTranslatorSdk(TRANSLATOR_API_KEY);
+$result = $sdk->translations()->all();
 ```
 
 Other examples can viewed in folder ./examples/ 

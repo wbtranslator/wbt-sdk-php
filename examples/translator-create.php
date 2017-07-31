@@ -1,7 +1,7 @@
 <?php
 
-use WebTranslator\Translation;
-use WebTranslator\Collection;
+use WBTranslator\Translation;
+use WBTranslator\Collection;
 
 require_once dirname(__FILE__) . '/config.php';
 
@@ -15,7 +15,7 @@ $collection = new Collection();
 $collection->add($translation);
 
 // Send translation
-$result = $translator->translations()->create($collection);
+$result = $sdk->translations()->create($collection);
 
 var_dump($result);
 

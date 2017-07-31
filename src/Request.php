@@ -1,22 +1,22 @@
 <?php
 
-namespace WebTranslator;
+namespace WBTranslator;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
-use WebTranslator\Interfaces\RequestInterface;
-use WebTranslator\Exceptions\ {
-    TranslatorException,
-    TranslatorConnectException,
-    TranslatorPaymentException,
-    TranslatorValidationException,
-    TranslatorAuthorizationException
+use WBTranslator\Interfaces\RequestInterface;
+use WBTranslator\Exceptions\ {
+    WBTranslatorException,
+    ConnectException,
+    PaymentException,
+    ValidationException,
+    AuthorizationException
 };
 
 /**
  * Class Request
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 class Request implements RequestInterface
 {
@@ -47,10 +47,10 @@ class Request implements RequestInterface
      * @param string $method
      * @param array $options
      * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws TranslatorAuthorizationException
-     * @throws TranslatorConnectException
-     * @throws TranslatorException
-     * @throws TranslatorValidationException
+     * @throws AuthorizationException
+     * @throws ConnectException
+     * @throws WBTranslatorException
+     * @throws ValidationException
      */
     public function send($endpoint, $method = 'GET', array $options = [])
     {
@@ -64,7 +64,7 @@ class Request implements RequestInterface
                 return $body->data;
             }
 
-            throw new TranslatorException(!empty($body->message) ? $body->message : 'Response Error!');
+            throw new WBTranslatorException(!empty($body->message) ? $body->message : 'Response Error!');
 
         } catch (ClientException $e) {
             $body = \json_decode((string) $e->getResponse()->getBody());
@@ -72,29 +72,29 @@ class Request implements RequestInterface
             switch ($e->getResponse()->getStatusCode()) {
                 // Authorization Exception
                 case 401:
-                    throw new TranslatorAuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!', 401);
+                    throw new AuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!', 401);
                     break;
     
                 // Payment Exception
                 case 402:
-                    throw new TranslatorPaymentException(!empty($body->message) ? [$body->message] : 'Payment error!', 402);
+                    throw new PaymentException(!empty($body->message) ? [$body->message] : 'Payment error!', 402);
                     break;
                     
                 // Connect Exception
                 case 404:
-                    throw new TranslatorConnectException(!empty($body->message) ? $body->message : 'Page Not Found!', 404);
+                    throw new ConnectException(!empty($body->message) ? $body->message : 'Page Not Found!', 404);
                     break;
     
                 // Validation Exception
                 case 422:
-                    throw new TranslatorValidationException(!empty($body->message) ? $body->message : 'Validation error!', 422);
+                    throw new ValidationException(!empty($body->message) ? $body->message : 'Validation error!', 422);
                     break;
                     
                 default:
-                    throw new TranslatorConnectException($e->getMessage());
+                    throw new ConnectException($e->getMessage());
             }
         } catch (\Exception $e) {
-            throw new TranslatorException($e->getMessage());
+            throw new WBTranslatorException($e->getMessage());
         }
     }
 }

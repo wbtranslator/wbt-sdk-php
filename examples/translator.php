@@ -3,16 +3,16 @@
 require_once dirname(__FILE__) . '/config.php';
 
 try {
-    $result = $translator->translations()->all();
+    $result = $sdk->translations()->all();
     var_dump($result);
 
-    $result = $translator->translations()->byLanguage('en');
+    $result = $sdk->translations()->byLanguage('en');
     var_dump($result);
 
-    $result = $translator->translations()->byGroup('cat');
+    $result = $sdk->translations()->byGroup('cat');
     var_dump($result);
 
-    $result = $translator->translations()->one('test2', 'en');
+    $result = $sdk->translations()->one('test2', 'en');
     var_dump($result);
 
 } catch (\Exception $e) {

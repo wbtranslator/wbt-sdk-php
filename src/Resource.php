@@ -1,14 +1,14 @@
 <?php
 
-namespace WebTranslator;
+namespace WBTranslator;
 
-use WebTranslator\Interfaces\RequestInterface;
-use WebTranslator\Interfaces\ResourceInterface;
+use WBTranslator\Interfaces\RequestInterface;
+use WBTranslator\Interfaces\ResourceInterface;
 
 /**
  * Class Resource
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 class Resource implements ResourceInterface
 {

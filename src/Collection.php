@@ -1,13 +1,13 @@
 <?php
 
-namespace WebTranslator;
+namespace WBTranslator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Collection
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 class Collection extends ArrayCollection
 {

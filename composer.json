@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "WebTranslator\\": "src/"
+            "WBTranslator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "WebTranslator\\Tests\\": "tests/"
+            "WBTranslator\\Tests\\": "tests/"
         }
     }
 }

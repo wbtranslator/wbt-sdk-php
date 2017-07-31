@@ -1,13 +1,13 @@
 <?php
 
-namespace WebTranslator\Interfaces;
+namespace WBTranslator\Interfaces;
 
-use WebTranslator\Collection;
+use WBTranslator\Collection;
 
 /**
  * Interface ResourceInterface
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 interface ResourceInterface
 {

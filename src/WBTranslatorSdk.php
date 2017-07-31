@@ -1,23 +1,23 @@
 <?php
 
-namespace WebTranslator;
+namespace WBTranslator;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use WebTranslator\Exceptions\TranslatorException;
-use WebTranslator\Interfaces\{
+use WBTranslator\Exceptions\WBTranslatorException;
+use WBTranslator\Interfaces\{
     RequestInterface, ResourceInterface
 };
-use WebTranslator\Resources\{
+use WBTranslator\Resources\{
     Groups, Languages, Translations
 };
 
 /**
- * Class WebTranslator
+ * Class WBTranslatorSdk
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
-class WebTranslator
+class WBTranslatorSdk
 {
     /**
      * @const string Version number of the Translator PHP SDK.
@@ -25,7 +25,7 @@ class WebTranslator
     const VERSION = '0.0.3';
 
     /**
-     * @const string Default api endpoint.
+     * @const string Default api url.
      */
     const API_URL = 'http://wbtranslator.com/api/project/';
 
@@ -66,19 +66,19 @@ class WebTranslator
     
     
     /**
-     * WebTranslator constructor.
+     * WBTranslator constructor.
      *
      * @param $apiKey
      * @param ClientInterface|null $client
      *
-     * @throws TranslatorException
+     * @throws WBTranslatorException
      */
     public function __construct($apiKey, ClientInterface $client = null)
     {
         $this->apiKey = $apiKey;
     
         if (!$this->apiKey) {
-            throw new TranslatorException('Required "apiKey" parameter!');
+            throw new WBTranslatorException('Required "apiKey" parameter!');
         }
         
         $this->client = $client ? $client : new Client([
