@@ -1,18 +1,19 @@
 <?php
 
-namespace WebTranslator\Exceptions;
+namespace WBTranslator\Exceptions;
 
 use Throwable;
 
 /**
  * Class TranslatorException
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
-class TranslatorException extends \Exception
+class WBTranslatorException extends \Exception
 {
     /**
      * TranslatorException constructor.
+     *
      * @param string|array $message
      * @param int $code
      * @param Throwable|null $previous

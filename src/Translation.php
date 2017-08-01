@@ -1,13 +1,13 @@
 <?php
 
-namespace WebTranslator;
+namespace WBTranslator;
 
-use WebTranslator\Interfaces\TranslationInterface;
+use WBTranslator\Interfaces\TranslationInterface;
 
 /**
  * Class Translation
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 class Translation implements TranslationInterface
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace WebTranslator\Resources;
+namespace WBTranslator\Resources;
 
-use WebTranslator\Interfaces\ResourceInterface;
-use WebTranslator\Resource;
-use WebTranslator\Collection;
+use WBTranslator\Interfaces\ResourceInterface;
+use WBTranslator\Resource;
+use WBTranslator\Collection;
 
 /**
  * Class Group
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 class Groups extends Resource implements ResourceInterface
 {

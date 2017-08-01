@@ -2,5 +2,5 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$result = $translator->groups()->all();
+$result = $sdk->groups()->all();
 var_dump($result);

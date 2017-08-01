@@ -1,11 +1,11 @@
 <?php
 
-namespace WebTranslator\Interfaces;
+namespace WBTranslator\Interfaces;
 
 /**
  * Interface TranslationInterface
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 interface TranslationInterface
 {

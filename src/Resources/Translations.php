@@ -1,17 +1,17 @@
 <?php
 
-namespace WebTranslator\Resources;
+namespace WBTranslator\Resources;
 
-use WebTranslator\{
+use WBTranslator\{
     Collection, Translation
 };
-use WebTranslator\Interfaces\ResourceInterface;
-use WebTranslator\Resource;
+use WBTranslator\Interfaces\ResourceInterface;
+use WBTranslator\Resource;
 
 /**
  * Class Translations
  *
- * @package WebTranslator
+ * @package WBTranslator
  */
 class Translations extends Resource implements ResourceInterface
 {
