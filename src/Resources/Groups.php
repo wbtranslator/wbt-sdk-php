@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace WBTranslator\Resources;
 
+use WBTranslator\Group;
 use WBTranslator\Interfaces\ResourceInterface;
 use WBTranslator\Resource;
 use WBTranslator\Collection;
@@ -29,16 +31,14 @@ class Groups extends Resource implements ResourceInterface
         $params = [];
 
         foreach ($groups as $group) {
-            $params[] = [
-                'name' => $group
-            ];
+            $params[] = $group->toArray();
         }
 
         $data = $this->request->send('groups/create', 'POST', [
             'form_params' => ['data' => $params]
         ]);
 
-        return $this->transformResponse($data);
+        return $this->transformResponse((array) $data);
     }
 
     /**
@@ -46,12 +46,43 @@ class Groups extends Resource implements ResourceInterface
      */
     protected function transformResponse($data): Collection
     {
+        return $this->addGroups($data);
+    }
+    
+    /**
+     * @param array $data
+     * @return Collection
+     */
+    protected function addGroups(array $data): Collection
+    {
         $collection = new Collection();
-
+    
         foreach ($data as $group) {
-            $collection->add($group->name);
+            $collection->add($this->addGroup((array) $group));
         }
-
+    
         return $collection;
+    }
+    
+    /**
+     * @param array $data
+     * @return Group
+     */
+    protected function addGroup(array $data)
+    {
+        $group = new Group();
+        $group->setId($data['id']);
+        $group->setName($data['name']);
+        
+        if (!empty($data['description'])) {
+            $group->setDescription($data['description']);
+        }
+    
+        if (!empty($data['children'])) {
+            $children = $this->addGroups((array) $data['children']);
+            $group->addChildren($children);
+        }
+        
+        return $group;
     }
 }

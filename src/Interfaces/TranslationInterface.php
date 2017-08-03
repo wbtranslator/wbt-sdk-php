@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace WBTranslator\Interfaces;
 
@@ -15,9 +16,9 @@ interface TranslationInterface
     public function getAbstractName(): string;
 
     /**
-     * @return string
+     * @return GroupInterface
      */
-    public function getGroup(): string;
+    public function getGroup(): GroupInterface;
 
     /**
      * @return string

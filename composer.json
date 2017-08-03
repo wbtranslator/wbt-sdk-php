@@ -8,7 +8,6 @@
             "email": "sergiy@futurenet.club"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": "^7",
     	"guzzlehttp/guzzle": "^6.0",
@@ -26,5 +25,6 @@
         "psr-4": {
             "WBTranslator\\Tests\\": "tests/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

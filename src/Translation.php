@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace WBTranslator;
 
+use WBTranslator\Interfaces\GroupInterface;
 use WBTranslator\Interfaces\TranslationInterface;
 
 /**
@@ -14,32 +16,32 @@ class Translation implements TranslationInterface
     /**
      * @var string
      */
-    protected $group;
-
-    /**
-     * @var string
-     */
-    protected $comment;
-
-    /**
-     * @var string
-     */
-    protected $language;
-
-    /**
-     * @var string
-     */
-    protected $translation;
-
-    /**
-     * @var string
-     */
     protected $abstractName;
-
+    
     /**
      * @var string
      */
     protected $originalValue;
+    
+    /**
+     * @var string
+     */
+    protected $language;
+    
+    /**
+     * @var string
+     */
+    protected $translation;
+    
+    /**
+     * @var string
+     */
+    protected $comment;
+  
+    /**
+     * @var GroupInterface
+     */
+    protected $group;
 
     /**
      * @return string
@@ -78,22 +80,41 @@ class Translation implements TranslationInterface
 
         return $this;
     }
-
+    
     /**
      * @return string
      */
-    public function getGroup(): string
+    public function getLanguage(): string
     {
-        return (string) $this->group;
+        return (string) $this->language;
     }
     
     /**
-     * @param string $group
+     * @param string $language
      * @return Translation
      */
-    public function setGroup(string $group)
+    public function setLanguage(string $language)
     {
-        $this->group = $group;
+        $this->language = $language;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getTranslation(): string
+    {
+        return (string) $this->translation;
+    }
+    
+    /**
+     * @param string $translation
+     * @return Translation
+     */
+    public function setTranslation(string $translation)
+    {
+        $this->translation = $translation;
         
         return $this;
     }
@@ -116,42 +137,23 @@ class Translation implements TranslationInterface
 
         return $this;
     }
-
+ 
     /**
-     * @return string
+     * @return GroupInterface
      */
-    public function getLanguage(): string
+    public function getGroup(): GroupInterface
     {
-        return (string) $this->language;
+        return $this->group;
     }
-
+    
     /**
-     * @param string $language
+     * @param GroupInterface $group
      * @return Translation
      */
-    public function setLanguage(string $language)
+    public function addGroup(GroupInterface $group)
     {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTranslation(): string
-    {
-        return (string) $this->translation;
-    }
-
-    /**
-     * @param string $translation
-     * @return Translation
-     */
-    public function setTranslation(string $translation)
-    {
-        $this->translation = $translation;
-
+        $this->group = $group;
+        
         return $this;
     }
 }
