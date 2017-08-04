@@ -156,4 +156,12 @@ class Translation implements TranslationInterface
         
         return $this;
     }
+    
+    /**
+     * @return bool
+     */
+    public function hasGroup(): bool
+    {
+        return !empty($this->group) ?: false;
+    }
 }

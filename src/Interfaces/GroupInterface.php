@@ -35,5 +35,12 @@ interface GroupInterface
     /**
      * @return Collection
      */
-    public function getChildren(): Collection;
+    //public function getChildren(): Collection;
+    
+    /**
+     * @param GroupInterface|null $group
+     *
+     * @return array
+     */
+    public function toArray(GroupInterface $group = null): array;
 }

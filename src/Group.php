@@ -35,14 +35,14 @@ class Group implements GroupInterface
     /**
      * @var Collection $children
      */
-    protected $children;
+    //protected $children;
     
     /**
      * Group constructor.
      */
     public function __construct()
     {
-        $this->children = new Collection;
+        //$this->children = new Collection;
     }
     
     /**
@@ -133,29 +133,29 @@ class Group implements GroupInterface
     /**
      * @return Collection
      */
-    public function getChildren(): Collection
+    /*public function getChildren(): Collection
     {
         return $this->children;
-    }
+    }*/
     
     /**
      * @param Collection $children
      *
      * @return Group
      */
-    public function addChildren(Collection $children)
+    /*public function addChildren(Collection $children)
     {
         $this->children = $children;
         
         return $this;
-    }
+    }*/
     
     /**
-     * @param Group|null $group
+     * @param GroupInterface|null $group
      *
      * @return array
      */
-    public function toArray(Group $group = null)
+    public function toArray(GroupInterface $group = null): array
     {
         if (null === $group) {
             $group = $this;
@@ -175,16 +175,42 @@ class Group implements GroupInterface
 
         if ($group->hasParent()) {
             $parent = $group->getParent();
-            $parent->addChildren(new Collection); // parent show without children
+            //$parent->addChildren(new Collection); // parent show without children
             $result['parent'] = $this->toArray($parent);
         }
         
-        if ($group->getChildren()) {
+        /*if ($group->getChildren()) {
             foreach ($group->getChildren() as $child) {
                 $result['children'][] = $this->toArray($child);
             }
-        }
+        }*/
         
         return $result;
+    }
+    
+    /**
+     * @param array $data
+     *
+     * @return GroupInterface
+     */
+    public function setFromArray(array $data): GroupInterface
+    {
+        $this->setName($data['name']);
+    
+        if (isset($data['id'])) {
+            $this->setId($data['id']);
+        }
+    
+        if (isset($data['description'])) {
+            $this->setDescription($data['description']);
+        }
+    
+        if (isset($data['parent'])) {
+            $parent = new Group();
+            $parent->setFromArray($data['parent']);
+            $this->addParent($parent);
+        }
+        
+        return $this;
     }
 }

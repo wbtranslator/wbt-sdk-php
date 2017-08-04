@@ -38,7 +38,7 @@ class Groups extends Resource implements ResourceInterface
             'form_params' => ['data' => $params]
         ]);
 
-        return $this->transformResponse((array) $data);
+        return $this->transformResponse($data);
     }
 
     /**
@@ -57,32 +57,13 @@ class Groups extends Resource implements ResourceInterface
     {
         $collection = new Collection();
     
-        foreach ($data as $group) {
-            $collection->add($this->addGroup((array) $group));
+        foreach ($data as $value) {
+            $group = new Group();
+            $group->setFromArray($value);
+            
+            $collection->add($group);
         }
     
         return $collection;
-    }
-    
-    /**
-     * @param array $data
-     * @return Group
-     */
-    protected function addGroup(array $data)
-    {
-        $group = new Group();
-        $group->setId($data['id']);
-        $group->setName($data['name']);
-        
-        if (!empty($data['description'])) {
-            $group->setDescription($data['description']);
-        }
-    
-        if (!empty($data['children'])) {
-            $children = $this->addGroups((array) $data['children']);
-            $group->addChildren($children);
-        }
-        
-        return $group;
     }
 }

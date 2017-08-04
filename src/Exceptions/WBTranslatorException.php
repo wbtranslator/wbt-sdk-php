@@ -23,7 +23,7 @@ class WBTranslatorException extends \Exception
     {
         $message = is_object($message) ? (array) $message : $message;
 
-        $message = is_array($message) ? !empty($message[key($message)][0])
+        $message = is_array($message) ? !empty(end($message[key($message)]))
             ? $message[key($message)][0] : '' : $message;
 
         parent::__construct($message, $code, $previous);

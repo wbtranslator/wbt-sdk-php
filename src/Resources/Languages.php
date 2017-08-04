@@ -29,9 +29,9 @@ class Languages extends Resource implements ResourceInterface
     {
         $collection = new Collection();
         
-        if (!empty($data->languages)) {
-            foreach ($data->languages as $value) {
-                $collection->add($value->code);
+        if (!empty($data['languages'])) {
+            foreach ($data['languages'] as $value) {
+                $collection->add($value['code']);
             }
         }
 

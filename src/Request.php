@@ -59,36 +59,36 @@ class Request implements RequestInterface
 
         try {
             $response = $this->client->request($method, $uri, $options);
-            $body = \json_decode((string) $response->getBody());
+            $body = \json_decode((string) $response->getBody(), true);
 
-            if ($body->status == 'success') {
-                return $body->data;
+            if (!empty($body['status']) && $body['status'] == 'success') {
+                return $body['data'];
             }
 
-            throw new WBTranslatorException(!empty($body->message) ? $body->message : 'Response Error!');
+            throw new WBTranslatorException(!empty($body['message']) ? $body['message'] : 'Response Error!');
 
         } catch (ClientException $e) {
-            $body = \json_decode((string) $e->getResponse()->getBody());
+            $body = \json_decode((string) $e->getResponse()->getBody(), true);
 
             switch ($e->getResponse()->getStatusCode()) {
                 // Authorization Exception
                 case 401:
-                    throw new AuthorizationException(!empty($body->message) ? $body->message : 'Authorization error!', 401);
+                    throw new AuthorizationException(!empty($body['message']) ? $body['message'] : 'Authorization error!', 401);
                     break;
     
                 // Payment Exception
                 case 402:
-                    throw new PaymentException(!empty($body->message) ? [$body->message] : 'Payment error!', 402);
+                    throw new PaymentException(!empty($body['message']) ? [$body['message']] : 'Payment error!', 402);
                     break;
                     
                 // Connect Exception
                 case 404:
-                    throw new ConnectException(!empty($body->message) ? $body->message : 'Page Not Found!', 404);
+                    throw new ConnectException(!empty($body['message']) ? $body['message'] : 'Page Not Found!', 404);
                     break;
     
                 // Validation Exception
                 case 422:
-                    throw new ValidationException(!empty($body->message) ? $body->message : 'Validation error!', 422);
+                    throw new ValidationException(!empty($body['message']) ? $body['message'] : 'Validation error!', 422);
                     break;
                     
                 default:

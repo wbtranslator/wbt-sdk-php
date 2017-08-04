@@ -13,16 +13,13 @@ $group2->setName('test_category2');
 
 $group3 = new Group();
 $group3->setName('test_category3');
+$group3->addParent($group2);
 
 $group4 = new Group();
 $group4->setName('test_category4');
-$group4->addChildren(new Collection([$group1, $group3]));
 $group4->addParent($group2);
 
+$collection = new Collection([$group1, $group3, $group4]);
 
-$collection = new Collection([$group4]);
-
-print_r($group4->toArray());
-
-//$result = $sdk->groups()->create($collection);
-//var_dump($result);
+$result = $sdk->groups()->create($collection);
+var_dump($result);

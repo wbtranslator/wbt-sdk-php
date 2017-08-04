@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WBTranslator\Resources;
 
 use WBTranslator\{
-    Collection, Translation
+    Collection, Exceptions\WBTranslatorException, Group, Interfaces\GroupInterface, Translation
 };
 use WBTranslator\Interfaces\ResourceInterface;
 use WBTranslator\Resource;
@@ -37,14 +37,24 @@ class Translations extends Resource implements ResourceInterface
     {
         return $this->byCriteria($this->endpoint, ['language_code' => $language]);
     }
-
+    
     /**
-     * @param $group
+     * @param GroupInterface $group
+     *
      * @return Collection
+     * @throws WBTranslatorException
      */
-    public function byGroup($group): Collection
+    public function byGroup(GroupInterface $group): Collection
     {
-        return $this->byCriteria($this->endpoint, ['group_name' => $group]);
+        if ($group->getId()) {
+            $where['group_id'] = $group->getId();
+        } elseif ($group->getName()) {
+            $where['group_name'] = $group->getName();
+        } else {
+            throw new WBTranslatorException('The group may not be empty!');
+        }
+        
+        return $this->byCriteria($this->endpoint, $where);
     }
 
     /**
@@ -74,12 +84,18 @@ class Translations extends Resource implements ResourceInterface
         $params = [];
 
         foreach ($translations as $translation) {
-            $params[] = [
+            
+            $row = [
                 'name' => $translation->getAbstractName(),
                 'value' => $translation->getOriginalValue(),
                 'comment' => $translation->getComment(),
-                'group_name' => $translation->getGroup(),
             ];
+            
+            if ($translation->hasGroup()) {
+                $row['group'] = $translation->getGroup()->toArray();
+            }
+    
+            $params[] = $row;
         }
 
         $data = $this->request->send('abstractions/create', 'POST', [
@@ -97,20 +113,22 @@ class Translations extends Resource implements ResourceInterface
         $collection = new Collection();
 
         foreach ($data as $abstraction) {
-            if (!empty($abstraction->translations)) {
-                foreach ($abstraction->translations as $translate) {
+            if (!empty($abstraction['translations'])) {
+                foreach ($abstraction['translations'] as $translate) {
                     $translation = new Translation();
-                    $translation->setAbstractName($abstraction->abstract_name)
-                        ->setOriginalValue($abstraction->original_value)
-                        ->setLanguage($translate->language)
-                        ->setTranslation($translate->value);
+                    $translation->setAbstractName($abstraction['abstract_name'])
+                        ->setOriginalValue($abstraction['original_value'])
+                        ->setLanguage($translate['language'])
+                        ->setTranslation($translate['value']);
 
-                    if (isset($abstraction->group)) {
-                        $translation->setGroup($abstraction->group);
+                    if (isset($abstraction['group'])) {
+                        $group = new Group();
+                        $group->setFromArray((array) $abstraction['group']);
+                        $translation->addGroup($group);
                     }
     
-                    if (isset($abstraction->comment)) {
-                        $translation->setComment($abstraction->comment);
+                    if (isset($abstraction['comment'])) {
+                        $translation->setComment($abstraction['comment']);
                     }
                     
                     $collection->add($translation);
