@@ -14,7 +14,18 @@ class GroupTest extends Mocks
 
     protected function setUp()
     {
-        $this->data = TestHelpers::toObject([['name' => 'cats'], ['name' => 'dogs']]);
+        $this->data = [
+            [
+                'name' => 'cats',
+                'description' => null,
+                'parent_id' => null
+            ], [
+                'name' => 'dogs',
+                'description' => null,
+                'parent_id' => null
+            ]
+        ];
+
         $this->groups = $this->resources(Groups::class, $this->data);
     }
 

@@ -13,7 +13,7 @@ class LanguagesTest extends Mocks
 
     protected function setUp()
     {
-        $this->data = TestHelpers::toObject(['languages' => [['code' => 'en'], ['code' => 'fr']]]);
+        $this->data = ['languages' => [['code' => 'en'], ['code' => 'fr']]];
         $this->languages = $this->resources(Languages::class, $this->data);
     }
 

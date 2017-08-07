@@ -3,6 +3,7 @@
 namespace WBTranslator\Tests;
 
 use WBTranslator\Collection;
+use WBTranslator\Group;
 use WBTranslator\Resources\Translations;
 use WBTranslator\Tests\Helpers\Mocks;
 use WBTranslator\Tests\Helpers\TestHelpers;
@@ -10,21 +11,29 @@ use WBTranslator\Tests\Helpers\TestHelpers;
 class TranslationTest extends Mocks
 {
     protected $data;
+    protected $group;
     protected $translations;
 
     protected function setUp()
     {
-        $this->data = TestHelpers::toObject([
+        $this->data = [
             'abstract_name' => 'abstract_name1',
             'original_value' => 'original_value1',
-            'group' => 'group1',
+            'group' => [
+                'name' => 'group1',
+                'parent_id' => null,
+            ],
+            'language' => 'en',
             'translations' => [[
                 'language' => 'ua',
                 'value' => 'value1'
             ]]
-        ]);
+        ];
 
         $this->translations = $this->resources(Translations::class, [$this->data]);
+
+        $group = new Group();
+        $this->group = $group->setFromArray(['name' => 'group1', 'parent_id' => null]);
     }
 
     public function testAll()
@@ -38,7 +47,7 @@ class TranslationTest extends Mocks
 
     public function testByLanguage()
     {
-        $language = $this->data->translations[0]->language;
+        $language = $this->data['translations'][0]['language'];
         $byLanguage = $this->translations->byLanguage($language);
 
         $this->assertInstanceOf(Collection::class, $byLanguage);
@@ -47,17 +56,18 @@ class TranslationTest extends Mocks
 
     public function testByGroup()
     {
-        $byGroup = $this->translations->byGroup($this->data->group);
+        $byGroup = $this->translations->byGroup($this->group);
 
         $this->assertInstanceOf(Collection::class, $byGroup);
-        $this->assertEquals($this->data->group, $byGroup[0]->getGroup());
+        $this->assertEquals($this->data['group']['name'], $byGroup[0]->getGroup()->getName());
     }
 
     public function testOne()
     {
-        $abstractName = $this->data->abstract_name;
-        $language = $this->data->translations[0]->language;
-        $translation = $this->data->translations[0]->value;
+        $abstractName = $this->data['abstract_name'];
+
+        $language = $this->data['translations'][0]['language'];
+        $translation = $this->data['translations'][0]['value'];
 
         $one = $this->translations->one($abstractName, $language);
 
