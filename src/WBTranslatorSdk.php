@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace WBTranslator\Sdk;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use WBTranslator\Sdk\Exceptions\WBTranslatorException;
 use WBTranslator\Sdk\Interfaces\{
-    RequestInterface, ResourceInterface
+    ConfigInterface, RequestInterface, ResourceInterface
 };
 use WBTranslator\Sdk\Resources\{
     Groups, Languages, Translations
@@ -24,21 +22,11 @@ class WBTranslatorSdk
      * @const string Version number of the Translator PHP SDK.
      */
     const VERSION = '0.0.3';
-
+    
     /**
-     * @const string Default api url.
+     * @var ConfigInterface
      */
-    const API_URL = 'http://wbtranslator.com/api/project/';
-
-    /**
-     * @var ClientInterface The Translator Http Client service.
-     */
-    protected $client;
-
-    /**
-     * @var string
-     */
-    protected $apiKey;
+    protected $config;
 
     /**
      * @var RequestInterface
@@ -65,46 +53,22 @@ class WBTranslatorSdk
      */
     protected $languages;
     
+    protected $locator;
     
     /**
      * WBTranslator constructor.
      *
-     * @param $apiKey
-     * @param ClientInterface|null $client
+     * @param ConfigInterface $config
      *
      * @throws WBTranslatorException
      */
-    public function __construct($apiKey, ClientInterface $client = null)
+    public function __construct(ConfigInterface $config)
     {
-        $this->apiKey = $apiKey;
+        $this->config = $config;
     
-        if (!$this->apiKey) {
+        if (!$this->config->getApiKey()) {
             throw new WBTranslatorException('Required "apiKey" parameter!');
         }
-        
-        $this->client = $client ? $client : new Client([
-            'base_uri' => self::API_URL
-        ]);
-    }
-
-    /**
-     * Return Api Key.
-     *
-     * @return string
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * Returns the Http Client service.
-     *
-     * @return ClientInterface
-     */
-    public function getClient()
-    {
-        return $this->client;
     }
     
     /**
@@ -123,7 +87,7 @@ class WBTranslatorSdk
     public function request()
     {
         if (null === $this->request) {
-            $this->request = new Request($this->getClient(), $this->getApiKey());
+            $this->request = new Request($this->config->getClient(), $this->config->getApiKey());
         }
 
         return $this->request;
@@ -181,5 +145,14 @@ class WBTranslatorSdk
         }
         
         return $this->languages;
+    }
+    
+    public function locator()
+    {
+        if (null === $this->locator) {
+            $this->locator = new Locator($this->config);
+        }
+        
+        return $this->locator;
     }
 }

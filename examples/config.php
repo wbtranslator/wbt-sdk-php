@@ -1,6 +1,7 @@
 <?php
 
 use WBTranslator\Sdk\WBTranslatorSdk;
+use WBTranslator\Sdk\Config;
 
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
@@ -10,4 +11,13 @@ $client = new \GuzzleHttp\Client([
     'base_uri' => 'http://192.168.88.149:8080/api/project/'
 ]);
 
-$sdk = new WBTranslatorSdk(WBT_API_KEY, $client ?? null);
+$config = new Config;
+$config->setApiKey(WBT_API_KEY);
+$config->setClient($client ?? null);
+$config->setBasePath('/www/laravel');
+$config->setBaseLocale('en');
+$config->setLangResourcePaths([
+    '/resources/lang'
+]);
+
+$sdk = new WBTranslatorSdk($config);
