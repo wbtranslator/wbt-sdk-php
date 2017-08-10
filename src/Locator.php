@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WBTranslator\Sdk;
 
 use WBTranslator\Sdk\Interfaces\ConfigInterface;
+use WBTranslator\Sdk\Interfaces\GroupInterface;
 use WBTranslator\Sdk\Group;
 use WBTranslator\Sdk\Translation;
 use WBTranslator\Sdk\Helper\FilesystemHelper;
@@ -43,6 +44,11 @@ class Locator
         $this->filesystem = new FilesystemHelper;
     }
     
+    /*
+     * Scan
+     *
+     * ==============================================================================================================
+     */
     public function scan()
     {
         $collection = new Collection;
@@ -75,7 +81,7 @@ class Locator
         }
         return $collection;
     }
-    
+   
     public function langPaths(): array
     {
         if (!empty($this->config->getLangResourcePaths())) {
@@ -115,5 +121,69 @@ class Locator
         $translation->addGroup($group);
         
         return $translation;
+    }
+    
+    /*
+     * Put
+     *
+     * ==============================================================================================================
+     */
+    
+    public function put(Collection $translations)
+    {
+        foreach ($this->toArray($translations) as $directory => $files) {
+            if (!file_exists($directory)) {
+                $this->filesystem->makeDirectory($directory, 0755, true);
+            }
+            
+            foreach ($files as $file => $values) {
+                $content = var_export($values, true);
+                
+                file_put_contents($directory . $file,
+                    '<?php' . PHP_EOL . PHP_EOL . "return $content;");
+            }
+        }
+    }
+    
+    protected function toArray(Collection $translations) :array
+    {
+        $array = [];
+        
+        foreach ($translations as $translation) {
+            $group = $translation->hasGroup() ? $translation->getGroup() : (new Group)->setName('wbtranslator');
+            
+            $directory = $this->getPath($translation->getLanguage(), $group);
+            $file = $this->getFile($group);
+            
+            ArrayHelper::set($array[$directory][$file], $translation->getAbstractName(), $translation->getTranslation());
+        }
+        return $array;
+    }
+    
+    protected function getPath(string $locale, GroupInterface $group): string
+    {
+        $alterGroup = $this->groupToPath($group);
+        
+        // exlude filename from paths
+        array_pop($alterGroup);
+
+        $parentGroup = $group->hasParent() ? $this->groupToPath($group->getParent()) : [];
+    
+        return rtrim($this->config->getBasePath(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR
+            . trim(implode(DIRECTORY_SEPARATOR, $parentGroup), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR
+            . trim($locale, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR
+            . trim(implode(DIRECTORY_SEPARATOR, $alterGroup), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    }
+    
+    protected function getFile(GroupInterface $group): string
+    {
+        $alterGroup = $this->groupToPath($group);
+        
+        return ArrayHelper::last($alterGroup) . '.php';
+    }
+    
+    protected function groupToPath(Group $group): array
+    {
+        return explode($this->config->getGroupDelimiter(), $group->getName());
     }
 }

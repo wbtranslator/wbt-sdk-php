@@ -41,4 +41,9 @@ class FilesystemHelper
         
         throw new LocaleException("File does not exist at path {$path}");
     }
+    
+    public function makeDirectory($path, $mode = 0755, $recursive = false)
+    {
+        return mkdir($path, $mode, $recursive);
+    }
 }
