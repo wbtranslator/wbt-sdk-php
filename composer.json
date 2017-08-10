@@ -26,6 +26,5 @@
         "psr-4": {
             "WBTranslator\\Sdk\\Tests\\": "tests/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
