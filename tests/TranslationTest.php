@@ -1,12 +1,12 @@
 <?php
 
-namespace WBTranslator\Tests;
+namespace WBTranslator\Sdk\Tests;
 
-use WBTranslator\Collection;
-use WBTranslator\Group;
-use WBTranslator\Resources\Translations;
-use WBTranslator\Tests\Helpers\Mocks;
-use WBTranslator\Tests\Helpers\TestHelpers;
+use WBTranslator\Sdk\Collection;
+use WBTranslator\Sdk\Group;
+use WBTranslator\Sdk\Resources\Translations;
+use WBTranslator\Sdk\Tests\Helpers\Mocks;
+use WBTranslator\Sdk\Tests\Helpers\TestHelpers;
 
 class TranslationTest extends Mocks
 {

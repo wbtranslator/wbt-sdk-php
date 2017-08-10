@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WBTranslator\\Tests\\": "tests/"
+            "WBTranslator\\Sdk\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev"

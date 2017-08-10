@@ -1,9 +1,9 @@
 <?php
 
-namespace WBTranslator\Tests\Helpers;
+namespace WBTranslator\Sdk\Tests\Helpers;
 
 use PHPUnit\Framework\TestCase;
-use WBTranslator\Interfaces\RequestInterface;
+use WBTranslator\Sdk\Interfaces\RequestInterface;
 
 abstract class Mocks extends TestCase
 {

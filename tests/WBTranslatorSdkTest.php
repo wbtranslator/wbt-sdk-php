@@ -1,9 +1,13 @@
 <?php
 
-namespace WBTranslator\Tests;
+namespace WBTranslator\Sdk\Tests;
 
 use PHPUnit\Framework\TestCase;
-use WBTranslator\WBTranslatorSdk;
+use GuzzleHttp\ClientInterface;
+use WBTranslator\Sdk\Config;
+use WBTranslator\Sdk\WBTranslatorSdk;
+use WBTranslator\Sdk\Interfaces\ResourceInterface;
+use WBTranslator\Sdk\Interfaces\RequestInterface;
 
 /**
  * Class WBTranslatorSdkTest
@@ -19,9 +23,12 @@ class WBTranslatorSdkTest extends TestCase
      */
     public function testWebTranslator()
     {
-        $sdk = new WBTranslatorSdk($this->apiKey);
+        $config = new Config;
+        $config->setApikey($this->apiKey);
+        
+        $sdk = new WBTranslatorSdk($config);
 
-        $this->assertEquals($this->apiKey, $sdk->getApiKey());
+        $this->assertEquals($config->getApiKey(), $this->apiKey);
 
         return $sdk;
     }
@@ -30,18 +37,9 @@ class WBTranslatorSdkTest extends TestCase
      * @depends testWebTranslator
      * @param WBTranslatorSdk $translator
      */
-    public function testGetClient(WBTranslatorSdk $sdk)
-    {
-        $this->assertInstanceOf(\GuzzleHttp\ClientInterface::class, $sdk->getClient());
-    }
-
-    /**
-     * @depends testWebTranslator
-     * @param WBTranslatorSdk $translator
-     */
     public function testRequest(WBTranslatorSdk $sdk)
     {
-        $this->assertInstanceOf(\WBTranslator\Interfaces\RequestInterface::class, $sdk->request());
+        $this->assertInstanceOf(RequestInterface::class, $sdk->request());
     }
 
     /**
@@ -50,7 +48,7 @@ class WBTranslatorSdkTest extends TestCase
      */
     public function testResource(WBTranslatorSdk $sdk)
     {
-        $this->assertInstanceOf(\WBTranslator\Interfaces\ResourceInterface::class, $sdk->resource());
+        $this->assertInstanceOf(ResourceInterface::class, $sdk->resource());
     }
 
     /**
@@ -59,7 +57,7 @@ class WBTranslatorSdkTest extends TestCase
      */
     public function testTranslations(WBTranslatorSdk $sdk)
     {
-        $this->assertInstanceOf(\WBTranslator\Interfaces\ResourceInterface::class, $sdk->translations());
+        $this->assertInstanceOf(ResourceInterface::class, $sdk->translations());
     }
 
     /**
@@ -68,6 +66,6 @@ class WBTranslatorSdkTest extends TestCase
      */
     public function testGroups(WBTranslatorSdk $sdk)
     {
-        $this->assertInstanceOf(\WBTranslator\Interfaces\ResourceInterface::class, $sdk->groups());
+        $this->assertInstanceOf(ResourceInterface::class, $sdk->groups());
     }
 }
