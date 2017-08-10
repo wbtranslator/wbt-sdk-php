@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator;
+namespace WBTranslator\Sdk;
 
-use WBTranslator\Interfaces\RequestInterface;
-use WBTranslator\Interfaces\ResourceInterface;
+use WBTranslator\Sdk\Interfaces\RequestInterface;
+use WBTranslator\Sdk\Interfaces\ResourceInterface;
 
 /**
  * Class Resource

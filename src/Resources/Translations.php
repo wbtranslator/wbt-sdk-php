@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator\Resources;
+namespace WBTranslator\Sdk\Resources;
 
-use WBTranslator\{
+use WBTranslator\Sdk\{
     Collection, Exceptions\WBTranslatorException, Group, Interfaces\GroupInterface, Translation
 };
-use WBTranslator\Interfaces\ResourceInterface;
-use WBTranslator\Resource;
+use WBTranslator\Sdk\Interfaces\ResourceInterface;
+use WBTranslator\Sdk\Resource;
 
 /**
  * Class Translations

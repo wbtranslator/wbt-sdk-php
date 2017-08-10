@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator\Interfaces;
+namespace WBTranslator\Sdk\Interfaces;
 
-use WBTranslator\Collection;
+use WBTranslator\Sdk\Collection;
 
 /**
  * Interface GroupInterface

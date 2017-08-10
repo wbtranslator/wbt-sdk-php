@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator;
+namespace WBTranslator\Sdk;
 
-use WBTranslator\Interfaces\GroupInterface;
+use WBTranslator\Sdk\Interfaces\GroupInterface;
 
 /**
  * Class Group

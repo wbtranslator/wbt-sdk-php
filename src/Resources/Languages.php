@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace WBTranslator\Resources;
 
-use WBTranslator\Interfaces\ResourceInterface;
-use WBTranslator\Resource;
-use WBTranslator\Collection;
+use WBTranslator\Sdk\Interfaces\ResourceInterface;
+use WBTranslator\Sdk\Resource;
+use WBTranslator\Sdk\Collection;
 
 /**
  * Class Languages

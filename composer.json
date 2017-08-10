@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WBTranslator\\": "src/"
+            "WBTranslator\\Sdk\\": "src/"
         }
     },
     "autoload-dev": {

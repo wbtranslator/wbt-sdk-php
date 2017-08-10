@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator;
+namespace WBTranslator\Sdk;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use WBTranslator\Exceptions\WBTranslatorException;
-use WBTranslator\Interfaces\{
+use WBTranslator\Sdk\Exceptions\WBTranslatorException;
+use WBTranslator\Sdk\Interfaces\{
     RequestInterface, ResourceInterface
 };
-use WBTranslator\Resources\{
+use WBTranslator\Sdk\Resources\{
     Groups, Languages, Translations
 };
 

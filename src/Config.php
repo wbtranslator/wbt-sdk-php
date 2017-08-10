@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator;
+namespace WBTranslator\Sdk;
 
-use WBTranslator\Interfaces\ConfigInterface;
+use WBTranslator\Sdk\Interfaces\ConfigInterface;
 
 class Config implements ConfigInterface
 {

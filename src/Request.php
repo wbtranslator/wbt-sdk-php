@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator;
+namespace WBTranslator\Sdk;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
-use WBTranslator\Interfaces\RequestInterface;
-use WBTranslator\Exceptions\ {
+use WBTranslator\Sdk\Interfaces\RequestInterface;
+use WBTranslator\Sdk\Exceptions\ {
     WBTranslatorException,
     ConnectException,
     PaymentException,

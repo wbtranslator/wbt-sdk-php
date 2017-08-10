@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator\Interfaces;
+namespace WBTranslator\Sdk\Interfaces;
 
 /**
  * Interface TranslationInterface

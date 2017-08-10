@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator\Helper;
+namespace WBTranslator\Sdk\Helper;
 
 /**
  * Class ArrayHelper

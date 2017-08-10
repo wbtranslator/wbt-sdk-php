@@ -1,6 +1,6 @@
 <?php
 
-use WBTranslator\WBTranslatorSdk;
+use WBTranslator\Sdk\WBTranslatorSdk;
 
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 

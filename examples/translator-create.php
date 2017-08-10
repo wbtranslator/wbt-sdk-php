@@ -1,11 +1,12 @@
 <?php
 
-use WBTranslator\Translation;
-use WBTranslator\Collection;
+use WBTranslator\Sdk\Translation;
+use WBTranslator\Sdk\Collection;
+use WBTranslator\Sdk\Group;
 
 require_once dirname(__FILE__) . '/config.php';
 
-$group1 = new \WBTranslator\Group();
+$group1 = new Group();
 $group1->setName('test_category1');
 
 $translation = new Translation();

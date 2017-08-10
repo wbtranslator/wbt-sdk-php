@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator\Resources;
+namespace WBTranslator\Sdk\Resources;
 
-use WBTranslator\Group;
-use WBTranslator\Interfaces\ResourceInterface;
-use WBTranslator\Resource;
-use WBTranslator\Collection;
+use WBTranslator\Sdk\Group;
+use WBTranslator\Sdk\Interfaces\ResourceInterface;
+use WBTranslator\Sdk\Resource;
+use WBTranslator\Sdk\Collection;
 
 /**
  * Class Group

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WBTranslator;
+namespace WBTranslator\Sdk;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

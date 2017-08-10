@@ -1,7 +1,7 @@
 <?php
 
-use WBTranslator\Group;
-use WBTranslator\Collection;
+use WBTranslator\Sdk\Group;
+use WBTranslator\Sdk\Collection;
 
 require_once dirname(__FILE__) . '/config.php';
 

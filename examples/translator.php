@@ -2,6 +2,8 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
+use WBTranslator\Sdk\Group;
+
 try {
     $result = $sdk->translations()->all();
     var_dump($result);
@@ -9,7 +11,7 @@ try {
     $result = $sdk->translations()->byLanguage('en');
     var_dump($result);
 
-    $group = new \WBTranslator\Group();
+    $group = new Group();
     $group->setName('test_group');
     $result = $sdk->translations()->byGroup($group);
     var_dump($result);
