@@ -5,6 +5,7 @@ namespace WBTranslator\Sdk;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use WBTranslator\Sdk\Collection;
 use WBTranslator\Sdk\Interfaces\ConfigInterface;
 
 class Config implements ConfigInterface
@@ -137,7 +138,7 @@ class Config implements ConfigInterface
     /**
      * @return array
      */
-    public function getLangResourcePaths(): array
+    public function getLangResourcePaths(): Collection
     {
         return $this->langResourcePaths;
     }
@@ -147,9 +148,13 @@ class Config implements ConfigInterface
      *
      * @return Config
      */
-    public function setLangResourcePaths(array $paths)
+    public function setLangResourcePaths($paths)
     {
-        $this->langResourcePaths = $paths;
+        if ($paths instanceof Collection) {
+            $this->langResourcePaths = $paths;
+        }
+        
+        $this->langResourcePaths = new Collection($paths);
     
         return $this;
     }

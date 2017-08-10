@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace WBTranslator\Sdk\Exceptions;
 
 /**
- * Class LocaleException
+ * Class LocatorException
  *
  * @package WBTranslator
  */
-class LocaleException extends WBTranslatorException
+class LocatorException extends WBTranslatorException
 {
 }

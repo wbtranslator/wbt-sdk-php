@@ -2,6 +2,10 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$result = $sdk->locator()->scan();
+$collection = $sdk->locator()->scan();
 
-var_dump($result);
+/*if ($collection) {
+    $result = $sdk->translations()->create($collection);
+}*/
+
+var_dump($collection);
