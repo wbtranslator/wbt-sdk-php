@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace WBTranslator\Sdk;
 
+use WBTranslator\Sdk\Interfaces\TranslationInterface;
 use WBTranslator\Sdk\Interfaces\ConfigInterface;
 use WBTranslator\Sdk\Interfaces\GroupInterface;
-use WBTranslator\Sdk\Group;
-use WBTranslator\Sdk\Translation;
 use WBTranslator\Sdk\Helper\FilesystemHelper;
 use WBTranslator\Sdk\Helper\ArrayHelper;
 
@@ -17,15 +16,19 @@ use WBTranslator\Sdk\Helper\ArrayHelper;
  */
 class Locator
 {
+    const DEFAULT_GROUP_NAME = 'wbtranslator';
+    
     /**
      * @var ConfigInterface
      */
     protected $config;
     
     /**
-     * @var Filesystem
+     * @var FilesystemHelper
      */
     protected $filesystem;
+    
+    protected $fileExtension = '.php';
     
     /**
      * Locale constructor.
@@ -48,7 +51,7 @@ class Locator
     {
         $collection = new Collection;
         
-        foreach ($this->config->getLangResourcePaths() as $localeDirectory) {
+        foreach ($this->config->getPaths() as $localeDirectory) {
             if (!file_exists($basePath = $this->getLocalePath($localeDirectory))) {
                 continue;
             }
@@ -78,16 +81,18 @@ class Locator
     }
     
     /**
-     * @param $localeDirectory
+     * @param string $localeDirectory
+     *
+     * @return string
      */
-    protected function getLocalePath($localeDirectory)
+    protected function getLocalePath(string $localeDirectory): string
     {
         $arr = array_map(function($el) {
             return trim($el, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         }, [
             $this->config->getBasePath(),
             $localeDirectory,
-            $this->config->getBaseLocale(),
+            $this->config->getLocale(),
         ]);
         
         return DIRECTORY_SEPARATOR . implode('', $arr);
@@ -95,14 +100,18 @@ class Locator
     
     /**
      * @param string $path
-     * @param null $parent
+     * @param GroupInterface|null $parent
      *
-     * @return \WBTranslator\Sdk\Group
+     * @return GroupInterface
      */
-    protected function createGroup(string $path, $parent = null)
+    protected function createGroup(string $path, GroupInterface $parent = null): GroupInterface
     {
         $path = trim($path, DIRECTORY_SEPARATOR);
-        $name = str_replace([DIRECTORY_SEPARATOR, '.php'], [$this->config->getGroupDelimiter(), ''], $path);
+        
+        $name = str_replace(
+            [DIRECTORY_SEPARATOR, $this->fileExtension],
+            [$this->config->getDelimiter(), ''],
+        $path);
         
         $group = new Group();
         $group->setName($name);
@@ -115,18 +124,21 @@ class Locator
     }
     
     /**
-     * @param $abstractName
-     * @param $originalValue
-     * @param $group
+     * @param string $abstractName
+     * @param string $originalValue
+     * @param Group|null $group
      *
-     * @return \WBTranslator\Sdk\Translation
+     * @return TranslationInterface
      */
-    protected function createTranslation($abstractName, $originalValue, $group)
+    protected function createTranslation(string $abstractName, string $originalValue, Group $group = null): TranslationInterface
     {
         $translation = new Translation;
         $translation->setAbstractName($abstractName);
         $translation->setOriginalValue(!empty($originalValue) ? (string)$originalValue : '');
-        $translation->addGroup($group);
+        
+        if (null !== $group) {
+            $translation->addGroup($group);
+        }
         
         return $translation;
     }
@@ -166,13 +178,14 @@ class Locator
         $array = [];
         
         foreach ($translations as $translation) {
-            $group = $translation->hasGroup() ? $translation->getGroup() : (new Group)->setName('wbtranslator');
+            $group = $translation->hasGroup() ? $translation->getGroup() : (new Group)->setName(self::DEFAULT_GROUP_NAME);
             
             $directory = $this->getPath($translation->getLanguage(), $group);
             $file = $this->getFile($group);
             
             ArrayHelper::set($array[$directory][$file], $translation->getAbstractName(), $translation->getTranslation());
         }
+        
         return $array;
     }
     
@@ -186,7 +199,7 @@ class Locator
     {
         $alterGroup = $this->groupToPath($group);
         
-        // exlude filename from paths
+        // exclude filename from paths
         array_pop($alterGroup);
 
         $parentGroup = $group->hasParent() ? $this->groupToPath($group->getParent()) : [];
@@ -217,11 +230,11 @@ class Locator
     }
     
     /**
-     * @param \WBTranslator\Sdk\Group $group
+     * @param GroupInterface $group
      *
      * @return array
      */
-    protected function groupToPath(Group $group): array
+    protected function groupToPath(GroupInterface $group): array
     {
         return explode($this->config->getGroupDelimiter(), $group->getName());
     }

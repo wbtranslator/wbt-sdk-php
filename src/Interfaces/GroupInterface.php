@@ -33,6 +33,11 @@ interface GroupInterface
     public function getParent(): GroupInterface;
     
     /**
+     * @return bool
+     */
+    public function hasParent(): bool;
+    
+    /**
      * @return Collection
      */
     //public function getChildren(): Collection;

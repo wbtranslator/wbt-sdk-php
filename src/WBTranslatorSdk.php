@@ -53,6 +53,9 @@ class WBTranslatorSdk
      */
     protected $languages;
     
+    /**
+     * @var
+     */
     protected $locator;
     
     /**
@@ -147,6 +150,9 @@ class WBTranslatorSdk
         return $this->languages;
     }
     
+    /**
+     * @return Locator
+     */
     public function locator()
     {
         if (null === $this->locator) {

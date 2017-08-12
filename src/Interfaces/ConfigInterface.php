@@ -31,15 +31,20 @@ interface ConfigInterface
     /**
      * @return string
      */
-    public function getBaseLocale(): string;
+    public function getLocale(): string;
     
     /**
      * @return string
      */
-    public function getGroupDelimiter(): string;
+    public function getFormat(): string;
+    
+    /**
+     * @return string
+     */
+    public function getDelimiter(): string;
     
     /**
      * @return Collection
      */
-    public function getLangResourcePaths(): Collection;
+    public function getPaths(): Collection;
 }

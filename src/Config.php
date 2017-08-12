@@ -5,15 +5,29 @@ namespace WBTranslator\Sdk;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use WBTranslator\Sdk\Collection;
 use WBTranslator\Sdk\Interfaces\ConfigInterface;
 
+/**
+ * Class Config
+ *
+ * @package WBTranslator
+ */
 class Config implements ConfigInterface
 {
     /**
      * @const string Default api url.
      */
     const API_URL = 'http://wbtranslator.com/api/project/';
+    
+    /**
+     * Format lang files
+     */
+    const DEFAULT_FORMAT = 'array';
+    
+    /**
+     * Group delimiter
+     */
+    const DEFAULT_DELIMITER = '::';
     
     /**
      * @var string
@@ -33,17 +47,32 @@ class Config implements ConfigInterface
     /**
      * @var string
      */
-    protected $baseLocale;
-    
-    /**
-     * @var array
-     */
-    protected $langResourcePaths = [];
+    protected $locale;
     
     /**
      * @var string
      */
-    protected $groupDelimiter = '::';
+    protected $format;
+   
+    /**
+     * @var string
+     */
+    protected $delimiter;
+    
+    /**
+     * @var Collection
+     */
+    protected $paths;
+    
+    /**
+     * Config constructor.
+     */
+    public function __construct()
+    {
+        $this->paths = new Collection();
+        $this->format = self::DEFAULT_FORMAT;
+        $this->delimiter = self::DEFAULT_DELIMITER;
+    }
     
     /**
      * Return Api Key.
@@ -118,9 +147,9 @@ class Config implements ConfigInterface
     /**
      * @return string
      */
-    public function getBaseLocale(): string
+    public function getLocale(): string
     {
-        return $this->baseLocale;
+        return $this->locale;
     }
     
     /**
@@ -128,33 +157,9 @@ class Config implements ConfigInterface
      *
      * @return Config
      */
-    public function setBaseLocale(string $locale)
+    public function setLocale(string $locale)
     {
-        $this->baseLocale = $locale;
-    
-        return $this;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getLangResourcePaths(): Collection
-    {
-        return $this->langResourcePaths;
-    }
-    
-    /**
-     * @param array $paths
-     *
-     * @return Config
-     */
-    public function setLangResourcePaths($paths)
-    {
-        if ($paths instanceof Collection) {
-            $this->langResourcePaths = $paths;
-        }
-        
-        $this->langResourcePaths = new Collection($paths);
+        $this->locale = $locale;
     
         return $this;
     }
@@ -162,9 +167,29 @@ class Config implements ConfigInterface
     /**
      * @return string
      */
-    public function getGroupDelimiter(): string
+    public function getFormat(): string
     {
-        return $this->groupDelimiter;
+        return $this->format;
+    }
+    
+    /**
+     * @param string $format
+     *
+     * @return Config
+     */
+    public function setFormat(string $format)
+    {
+        $this->format = $format;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDelimiter(): string
+    {
+        return $this->delimiter;
     }
     
     /**
@@ -172,10 +197,38 @@ class Config implements ConfigInterface
      *
      * @return Config
      */
-    public function setGroupDelimiter(string $delimiter)
+    public function setDelimiter(string $delimiter)
     {
-        $this->groupDelimiter = $delimiter;
+        $this->delimiter = $delimiter;
     
+        return $this;
+    }
+    
+    /**
+     * @return Collection
+     */
+    public function getPaths(): Collection
+    {
+        return $this->paths;
+    }
+    
+    /**
+     * @param array $paths
+     *
+     * @return Config
+     */
+    public function setPaths($paths)
+    {
+        if ($paths instanceof Collection) {
+            $this->paths = $paths;
+        }
+        
+        if (!is_array($paths)) {
+            $paths = (array) $paths;
+        }
+        
+        $this->paths = new Collection($paths);
+        
         return $this;
     }
 }
