@@ -46,5 +46,5 @@ interface ConfigInterface
     /**
      * @return Collection
      */
-    public function getPaths(): Collection;
+    public function getLangPaths(): Collection;
 }

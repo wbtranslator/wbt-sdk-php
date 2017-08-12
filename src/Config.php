@@ -62,16 +62,16 @@ class Config implements ConfigInterface
     /**
      * @var Collection
      */
-    protected $paths;
+    protected $langPaths;
     
     /**
      * Config constructor.
      */
     public function __construct()
     {
-        $this->paths = new Collection();
         $this->format = self::DEFAULT_FORMAT;
         $this->delimiter = self::DEFAULT_DELIMITER;
+        $this->langPaths = new Collection();
     }
     
     /**
@@ -207,9 +207,9 @@ class Config implements ConfigInterface
     /**
      * @return Collection
      */
-    public function getPaths(): Collection
+    public function getLangPaths(): Collection
     {
-        return $this->paths;
+        return $this->langPaths;
     }
     
     /**
@@ -217,17 +217,17 @@ class Config implements ConfigInterface
      *
      * @return Config
      */
-    public function setPaths($paths)
+    public function setLangPaths($paths)
     {
         if ($paths instanceof Collection) {
-            $this->paths = $paths;
+            $this->langPaths = $paths;
         }
         
         if (!is_array($paths)) {
             $paths = (array) $paths;
         }
         
-        $this->paths = new Collection($paths);
+        $this->langPaths = new Collection($paths);
         
         return $this;
     }

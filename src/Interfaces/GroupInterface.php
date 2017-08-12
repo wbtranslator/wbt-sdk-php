@@ -38,11 +38,6 @@ interface GroupInterface
     public function hasParent(): bool;
     
     /**
-     * @return Collection
-     */
-    //public function getChildren(): Collection;
-    
-    /**
      * @param GroupInterface|null $group
      *
      * @return array

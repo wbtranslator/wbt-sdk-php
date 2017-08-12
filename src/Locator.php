@@ -51,7 +51,7 @@ class Locator
     {
         $collection = new Collection;
         
-        foreach ($this->config->getPaths() as $localeDirectory) {
+        foreach ($this->config->getLangPaths() as $localeDirectory) {
             if (!file_exists($basePath = $this->getLocalePath($localeDirectory))) {
                 continue;
             }
@@ -236,6 +236,6 @@ class Locator
      */
     protected function groupToPath(GroupInterface $group): array
     {
-        return explode($this->config->getGroupDelimiter(), $group->getName());
+        return explode($this->config->getDelimiter(), $group->getName());
     }
 }

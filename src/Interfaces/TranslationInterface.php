@@ -19,7 +19,12 @@ interface TranslationInterface
      * @return GroupInterface
      */
     public function getGroup(): GroupInterface;
-
+    
+    /**
+     * @return bool
+     */
+    public function hasGroup(): bool;
+    
     /**
      * @return string
      */
