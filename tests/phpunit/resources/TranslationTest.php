@@ -1,6 +1,6 @@
 <?php
 
-namespace WBTranslator\Sdk\Tests;
+namespace WBTranslator\Sdk\Tests\PhpUnit\Resources;
 
 use WBTranslator\Sdk\Collection;
 use WBTranslator\Sdk\Group;

@@ -1,6 +1,6 @@
 <?php
 
-namespace WBTranslator\Sdk\Tests;
+namespace WBTranslator\Sdk\Tests\PhpUnit\Resources;
 
 use WBTranslator\Sdk\Resources\Languages;
 use WBTranslator\Sdk\Tests\Helpers\Mocks;
