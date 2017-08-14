@@ -81,7 +81,7 @@ class LocatorTest extends TestCase
             $this->config->getLangPaths()[0]
         ]);
 
-        $this->assertEquals("C:\Work\OpenServer\domains\www\wbt-sdk-php\\tests\phpunit\\files\lang\delete\\",
+        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR .  "files\lang\delete\\",
             $basePath
         );
     }
@@ -125,7 +125,7 @@ class LocatorTest extends TestCase
         $response = TestHelpers::invokeMethod($this->locator, 'toArray', [$this->collection]);
 
         $this->assertEquals(
-            ["C:\Work\OpenServer\domains\www\wbt-sdk-php\\tests\phpunit\delete\awesome\group\\" => [
+            [__DIR__ . DIRECTORY_SEPARATOR .  "delete\awesome\group\\" => [
                 "file.php" => ["super" => ["puper" => ["name" => "translate"]]]]],
             $response
         );
