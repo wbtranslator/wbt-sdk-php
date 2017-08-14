@@ -122,7 +122,6 @@ class LocatorTest extends TestCase
 
     public function testToArray()
     {
-
         $response = TestHelpers::invokeMethod($this->locator, 'toArray', [$this->collection]);
 
         $this->assertEquals(
