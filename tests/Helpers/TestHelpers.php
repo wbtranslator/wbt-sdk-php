@@ -23,17 +23,6 @@ class TestHelpers
     }
 
     /**
-     * Get object from array
-     *
-     * @param array $array
-     * @return object
-     */
-    public static function toObject($array)
-    {
-        return json_decode(json_encode($array), false);
-    }
-
-    /**
      * Recursively delete a directory.
      *
      * The directory itself may be optionally preserved.
@@ -72,17 +61,6 @@ class TestHelpers
 
         }
         return true;
-    }
-
-    /**
-     * Empty the specified directory of all files and folders.
-     *
-     * @param  string $directory
-     * @return bool
-     */
-    public function cleanDirectory($directory)
-    {
-        return $this->deleteDirectory($directory, true);
     }
 
     /**
