@@ -129,7 +129,7 @@ class Config implements ConfigInterface
      */
     public function getBasePath(): string
     {
-        return $this->basePath;
+        return rtrim($this->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
     }
     
     /**

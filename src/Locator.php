@@ -90,12 +90,11 @@ class Locator
         $arr = array_map(function($el) {
             return trim($el, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         }, [
-            $this->config->getBasePath(),
             $localeDirectory,
             $this->config->getLocale(),
         ]);
         
-        return DIRECTORY_SEPARATOR . implode('', $arr);
+        return $this->config->getBasePath() . implode('', $arr);
     }
     
     /**
@@ -155,6 +154,7 @@ class Locator
     public function put(Collection $translations)
     {
         foreach ($this->toArray($translations) as $directory => $files) {
+
             if (!file_exists($directory)) {
                 $this->filesystem->makeDirectory($directory, 0755, true);
             }
@@ -205,15 +205,14 @@ class Locator
         $parentGroup = $group->hasParent() ? $this->groupToPath($group->getParent()) : [];
     
         $arr = array_map(function($el) {
-            return trim($el, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+            return $el ? trim($el, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR : '';
         }, [
-            $this->config->getBasePath(),
             implode(DIRECTORY_SEPARATOR, $parentGroup),
             $locale,
             implode(DIRECTORY_SEPARATOR, $alterGroup),
         ]);
     
-        return DIRECTORY_SEPARATOR . implode('', $arr);
+        return $this->config->getBasePath() . implode('', $arr);
 
     }
     
