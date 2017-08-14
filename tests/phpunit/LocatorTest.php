@@ -22,10 +22,10 @@ class LocatorTest extends TestCase
     protected function setUp()
     {
         $config = new Config();
-        $config->setGroupDelimiter('::');
+        $config->setDelimiter('::');
         $config->setBasePath(__DIR__);
-        $config->setBaseLocale('delete');
-        $config->setLangResourcePaths([DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'lang']);
+        $config->setLocale('delete');
+        $config->setLangPaths([DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'lang']);
         $this->config = $config;
 
         $this->locator = $locator = new Locator($config);
@@ -69,7 +69,7 @@ class LocatorTest extends TestCase
     public function testCreateGroup()
     {
         $group = TestHelpers::invokeMethod($this->locator, 'createGroup', [
-            $this->config->getLangResourcePaths()[0]
+            $this->config->getLangPaths()[0]
         ]);
 
         $this->assertEquals('files::lang', $group->getName());
@@ -78,7 +78,7 @@ class LocatorTest extends TestCase
     public function testGetLocalePath()
     {
         $basePath = TestHelpers::invokeMethod($this->locator, 'getLocalePath', [
-            $this->config->getLangResourcePaths()[0]
+            $this->config->getLangPaths()[0]
         ]);
 
         $this->assertEquals("C:\Work\OpenServer\domains\www\wbt-sdk-php\\tests\phpunit\\files\lang\delete\\",
