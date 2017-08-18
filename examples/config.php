@@ -15,8 +15,8 @@ $config = new Config;
 $config->setApiKey(WBT_API_KEY);
 $config->setClient($client ?? null);
 $config->setBasePath('/www/laravel');
-$config->setBaseLocale('en');
-$config->setLangResourcePaths([
+$config->setLocale('en');
+$config->setLangPaths([
     '/resources/lang'
 ]);
 
