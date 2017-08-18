@@ -69,6 +69,8 @@ class Locator
                             if (!$abstractName) {
                                 continue;
                             }
+    
+                            $originalValue = !empty($originalValue) ? (string) $originalValue : '';
                             
                             $translation = $this->createTranslation($abstractName, $originalValue, $group);
                             $collection->add($translation);
