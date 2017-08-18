@@ -1,10 +1,13 @@
 # WBTranslator PHP SDK
 ### Examples
 Get all translations
-```
-use \WBTranslator\WBTranslatorSdk;
+```php
+define('WBT_API_KEY', 'ea84db77506cd5bc8586af4ec4b7a347');
 
-$sdk = new WBTranslatorSdk(TRANSLATOR_API_KEY);
+$config = new \WBTranslator\Sdk\Config();
+$config->setApiKey(WBT_API_KEY);
+
+$sdk = new \WBTranslator\Sdk\WBTranslatorSdk($config);
 $result = $sdk->translations()->all();
 ```
 
