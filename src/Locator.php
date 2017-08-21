@@ -72,7 +72,7 @@ class Locator
     
                             $originalValue = !empty($originalValue) ? (string) $originalValue : '';
                             
-                            $translation = $this->createTranslation($abstractName, $originalValue, $group);
+                            $translation = $this->createTranslation((string) $abstractName, $originalValue, $group);
                             $collection->add($translation);
                         }
                     }
