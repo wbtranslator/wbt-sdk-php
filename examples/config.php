@@ -13,8 +13,8 @@ $client = new \GuzzleHttp\Client([
 
 $config = new Config;
 $config->setApiKey(WBT_API_KEY);
-$config->setClient($client ?? null);
-$config->setBasePath('/www/laravel');
+//$config->setClient($client);
+$config->setBasePath('/Users/sergiy/www/futurenet/web.translator');
 $config->setLocale('en');
 $config->setLangPaths([
     '/resources/lang'

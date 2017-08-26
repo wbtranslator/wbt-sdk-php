@@ -47,7 +47,7 @@ class Locator
      *
      * ==============================================================================================================
      */
-    public function scan()
+    /*public function scan()
     {
         $collection = new Collection;
         
@@ -79,6 +79,30 @@ class Locator
                 }
             }
         }
+        return $collection;
+    }*/
+    public function scan()
+    {
+        $collection = new Collection;
+
+        foreach ($this->config->getLangPaths() as $localeDirectory) {
+            if (!file_exists($basePath = $this->getLocalePath($localeDirectory))) {
+                continue;
+            }
+
+            $rootGroup = $this->createGroup($localeDirectory);
+
+            foreach ($this->filesystem->getAllFiles($basePath) as $file) {
+
+                if (file_exists($file['absolutePathname'])) {
+                    $collection->add([
+                        'filename' => $file['absolutePathname'],
+                        'group' => $this->createGroup($file['relativePathname'], $rootGroup),
+                    ]);
+                }
+            }
+        }
+
         return $collection;
     }
     
@@ -131,7 +155,7 @@ class Locator
      *
      * @return TranslationInterface
      */
-    protected function createTranslation(string $abstractName, string $originalValue, Group $group = null): TranslationInterface
+    /*protected function createTranslation(string $abstractName, string $originalValue, Group $group = null): TranslationInterface
     {
         $translation = new Translation;
         $translation->setAbstractName($abstractName);
@@ -142,7 +166,7 @@ class Locator
         }
         
         return $translation;
-    }
+    }*/
     
     /*
      * Put

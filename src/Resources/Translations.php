@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WBTranslator\Sdk\Resources;
 
 use WBTranslator\Sdk\{
-    Collection, Exceptions\WBTranslatorException, Group, Interfaces\GroupInterface, Translation
+    Collection, Exceptions\WBTranslatorException, Group, Interfaces\GroupInterface, Locator, Translation
 };
 use WBTranslator\Sdk\Interfaces\ResourceInterface;
 use WBTranslator\Sdk\Resource;
@@ -33,7 +33,7 @@ class Translations extends Resource implements ResourceInterface
      * @param $language
      * @return Collection
      */
-    public function byLanguage($language): Collection
+    public function byLanguage(string $language): Collection
     {
         return $this->byCriteria($this->endpoint, ['language_code' => $language]);
     }
@@ -63,13 +63,22 @@ class Translations extends Resource implements ResourceInterface
      * @param $group
      * @return string
      */
-    public function one($abstractName, $language, $group = null): string
+    public function one(string $abstractName, string $language, Group $group = null): string
     {
-        $data = $this->byCriteria($this->endpoint, [
+        $where = [
             'abstract_name' => $abstractName,
             'language_code' => $language,
-            'group_name' => $group,
-        ]);
+        ];
+
+        if (null !== $group) {
+            if ($group->getId()) {
+                $where['group_id'] = $group->getId();
+            } elseif ($group->getName()) {
+                $where['group_name'] = $group->getName();
+            }
+        }
+
+        $data = $this->byCriteria($this->endpoint, $where);
 
         return !empty($data->first()) ? $data->first()->getTranslation() : '';
     }
@@ -103,6 +112,37 @@ class Translations extends Resource implements ResourceInterface
         ]);
 
         return new Collection($data);
+    }
+
+    /**
+     * @param Collection $files
+     *
+     * @return Collection
+     */
+    public function upload(Collection $files): Collection
+    {
+        $collection = new Collection();
+
+        foreach ($files as $row) {
+            $params = [
+                [
+                    'name' => 'file',
+                    'contents' => fopen($row['filename'], 'r'),
+                ],
+                [
+                    'name' => 'group',
+                    'contents' => $row['group']->toArray(),
+                ],
+            ];
+
+            /*$result = $this->request->send('abstractions/upload', 'POST', [
+                'multipart' => $params
+            ]);*/
+
+            //$collection->add($result);
+        }
+
+        return $collection;
     }
 
     /**

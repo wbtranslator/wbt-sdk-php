@@ -2,10 +2,10 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$collection = $sdk->locator()->scan();
+$files = $sdk->locator()->scan();
 
-/*if ($collection) {
-    $result = $sdk->translations()->create($collection);
-}*/
+if ($files) {
+    $result = $sdk->translations()->upload($files);
+    var_dump($result);
+}
 
-var_dump($collection);
