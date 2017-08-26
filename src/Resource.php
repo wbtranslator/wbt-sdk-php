@@ -57,4 +57,28 @@ class Resource implements ResourceInterface
     {
         return new Collection([$data]);
     }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function normalizeMultipartParams(array $data): array
+    {
+        $output = [];
+
+        foreach ($data as $key => $value) {
+            if (!is_array($value)) {
+                $output[] = ['name' => $key, 'contents' => $value];
+                continue;
+            }
+
+            foreach($value as $multiKey => $multiValue) {
+                $multiName = $key . '[' .$multiKey . ']' . (is_array($multiValue) ? '[' . key($multiValue) . ']' : '' ) . '';
+                $output[] = ['name' => $multiName, 'contents' => (is_array($multiValue) ? reset($multiValue) : $multiValue)];
+            }
+        }
+
+        return $output;
+    }
 }

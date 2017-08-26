@@ -22,7 +22,7 @@ class Config implements ConfigInterface
     /**
      * Format lang files
      */
-    const DEFAULT_FORMAT = 'array';
+    const DEFAULT_FORMAT = 'phparray';
     
     /**
      * Group delimiter
@@ -72,6 +72,10 @@ class Config implements ConfigInterface
         $this->format = self::DEFAULT_FORMAT;
         $this->delimiter = self::DEFAULT_DELIMITER;
         $this->langPaths = new Collection();
+
+        $this->client = new Client([
+            'base_uri' => self::API_URL
+        ]);
     }
     
     /**
@@ -103,12 +107,6 @@ class Config implements ConfigInterface
      */
     public function getClient(): ClientInterface
     {
-        if (null === $this->client) {
-            $this->client = new Client([
-                'base_uri' => self::API_URL
-            ]);
-        }
-        
         return $this->client;
     }
     

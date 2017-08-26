@@ -125,21 +125,19 @@ class Translations extends Resource implements ResourceInterface
 
         foreach ($files as $row) {
             $params = [
-                [
-                    'name' => 'file',
-                    'contents' => fopen($row['filename'], 'r'),
-                ],
-                [
-                    'name' => 'group',
-                    'contents' => $row['group']->toArray(),
-                ],
+                'file' => fopen($row['filename'], 'r'),
+                'format' => $row['format'],
             ];
 
-            /*$result = $this->request->send('abstractions/upload', 'POST', [
-                'multipart' => $params
-            ]);*/
+            if (!empty($row['group']) && $row['group'] instanceof GroupInterface) {
+                $params['group'] = $row['group']->toArray();
+            }
 
-            //$collection->add($result);
+            $result = $this->request->send('abstractions/upload', 'POST', [
+                'multipart' => self::normalizeMultipartParams($params)
+            ]);
+
+            $collection->add($result);
         }
 
         return $collection;

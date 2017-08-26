@@ -93,10 +93,10 @@ class Locator
             $rootGroup = $this->createGroup($localeDirectory);
 
             foreach ($this->filesystem->getAllFiles($basePath) as $file) {
-
                 if (file_exists($file['absolutePathname'])) {
                     $collection->add([
                         'filename' => $file['absolutePathname'],
+                        'format' => $this->config->getFormat(),
                         'group' => $this->createGroup($file['relativePathname'], $rootGroup),
                     ]);
                 }

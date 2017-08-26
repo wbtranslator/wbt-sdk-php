@@ -19,7 +19,7 @@ class WBTranslatorException extends \Exception
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message = "", $code = 0, Throwable $previous = null)
+    public function __construct($message = '', $code = 0, Throwable $previous = null)
     {
         $message = is_object($message) ? (array) $message : $message;
 
