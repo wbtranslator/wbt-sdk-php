@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace WBTranslator\Sdk\Resources;
 
 use WBTranslator\Sdk\{
-    Collection, Exceptions\WBTranslatorException, Group, Interfaces\GroupInterface, Locator, Translation
+    Collection, Group, Resource, Translation,
+    Exceptions\WBTranslatorException,
+    Interfaces\GroupInterface,
+    Interfaces\ResourceInterface
 };
-use WBTranslator\Sdk\Interfaces\ResourceInterface;
-use WBTranslator\Sdk\Resource;
 
 /**
  * Class Translations
@@ -63,7 +64,7 @@ class Translations extends Resource implements ResourceInterface
      * @param $group
      * @return string
      */
-    public function one(string $abstractName, string $language, Group $group = null): string
+    public function one(string $abstractName, string $language, GroupInterface $group = null): string
     {
         $where = [
             'abstract_name' => $abstractName,
@@ -81,66 +82,6 @@ class Translations extends Resource implements ResourceInterface
         $data = $this->byCriteria($this->endpoint, $where);
 
         return !empty($data->first()) ? $data->first()->getTranslation() : '';
-    }
-
-    /**
-     * Create Project abstractions
-     *
-     * @inheritdoc
-     */
-    public function create(Collection $translations): Collection
-    {
-        $params = [];
-
-        foreach ($translations as $translation) {
-            
-            $row = [
-                'name' => $translation->getAbstractName(),
-                'value' => $translation->getOriginalValue(),
-                'comment' => $translation->getComment(),
-            ];
-            
-            if ($translation->hasGroup()) {
-                $row['group'] = $translation->getGroup()->toArray();
-            }
-    
-            $params[] = $row;
-        }
-
-        $data = $this->request->send('abstractions/create', 'POST', [
-            'form_params' => ['data' => $params]
-        ]);
-
-        return new Collection($data);
-    }
-
-    /**
-     * @param Collection $files
-     *
-     * @return Collection
-     */
-    public function upload(Collection $files): Collection
-    {
-        $collection = new Collection();
-
-        foreach ($files as $row) {
-            $params = [
-                'file' => fopen($row['filename'], 'r'),
-                'format' => $row['format'],
-            ];
-
-            if (!empty($row['group']) && $row['group'] instanceof GroupInterface) {
-                $params['group'] = $row['group']->toArray();
-            }
-
-            $result = $this->request->send('abstractions/upload', 'POST', [
-                'multipart' => self::normalizeMultipartParams($params)
-            ]);
-
-            $collection->add($result);
-        }
-
-        return $collection;
     }
 
     /**

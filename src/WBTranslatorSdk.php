@@ -8,7 +8,7 @@ use WBTranslator\Sdk\Interfaces\{
     ConfigInterface, RequestInterface, ResourceInterface
 };
 use WBTranslator\Sdk\Resources\{
-    Groups, Languages, Translations
+    Abstractions, Groups, Languages, Translations
 };
 
 /**
@@ -21,7 +21,7 @@ class WBTranslatorSdk
     /**
      * @const string Version number of the Translator PHP SDK.
      */
-    const VERSION = '0.0.3';
+    const VERSION = '0.2.0';
     
     /**
      * @var ConfigInterface
@@ -47,7 +47,13 @@ class WBTranslatorSdk
      * @var ResourceInterface Project Translations
      */
     protected $translations;
-    
+
+    /**
+     * @var ResourceInterface Project Abstractions
+     */
+    protected $abstractions;
+
+
     /**
      * @var ResourceInterface Project Languages
      */
@@ -135,7 +141,21 @@ class WBTranslatorSdk
 
         return $this->translations;
     }
-    
+
+    /**
+     * Returns Project Abstractions.
+     *
+     * @return ResourceInterface
+     */
+    public function abstractions()
+    {
+        if (null === $this->abstractions) {
+            $this->abstractions = new Abstractions($this->request());
+        }
+
+        return $this->abstractions;
+    }
+
     /**
      * Returns Project Languages.
      *
