@@ -7,7 +7,7 @@ use WBTranslator\Sdk\Resources\Groups;
 use WBTranslator\Sdk\Tests\Helpers\Mocks;
 use WBTranslator\Sdk\Tests\Helpers\TestHelpers;
 
-class GroupTest extends Mocks
+class GroupsTest extends Mocks
 {
     protected $data;
     protected $groups;

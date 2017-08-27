@@ -55,7 +55,7 @@ class LocatorTest extends TestCase
     * ==============================================================================================================
     */
 
-    public function testCreateTranslation()
+    /*public function testCreateTranslation()
     {
         $translation = TestHelpers::invokeMethod($this->locator, 'createTranslation', [
             'super.puper.name', 'original value', $this->group
@@ -64,7 +64,7 @@ class LocatorTest extends TestCase
         $this->assertEquals('super.puper.name', $translation->getAbstractName());
         $this->assertEquals('original value', $translation->getOriginalValue());
         $this->assertEquals('awesome::group::file', $translation->getGroup()->getName());
-    }
+    }*/
 
     public function testCreateGroup()
     {

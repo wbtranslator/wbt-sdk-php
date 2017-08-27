@@ -74,18 +74,6 @@ class TranslationTest extends Mocks
         $this->assertEquals($translation, $one);
     }
 
-    /**
-     * @depends testAll
-     * @param Collection $translations
-     */
-    public function testCreate($translations)
-    {
-        $create = $this->translations->create($translations);
-
-        $this->assertInstanceOf(Collection::class, $create);
-        $this->assertCount(1, $create);
-    }
-
     public function testTransformResponse()
     {
         $collection = new Collection([$this->data]);
