@@ -122,7 +122,7 @@ class Locator
         
         return $this->config->getBasePath() . implode('', $arr);
     }
-    
+
     /**
      * @param string $path
      * @param GroupInterface|null $parent

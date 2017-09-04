@@ -3,7 +3,6 @@
 namespace WBTranslator\Sdk\Tests;
 
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\ClientInterface;
 use WBTranslator\Sdk\Config;
 use WBTranslator\Sdk\WBTranslatorSdk;
 use WBTranslator\Sdk\Interfaces\ResourceInterface;
