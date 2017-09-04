@@ -57,7 +57,7 @@ class Locator
             }
             
             $rootGroup = $this->createGroup($localeDirectory);
-            
+
             foreach ($this->filesystem->getAllFiles($basePath) as $file) {
                 $data = $this->filesystem->getRequire($file['absolutePathname']);
                 

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace WBTranslator\Sdk\Helper;
 
-use WBTranslator\Sdk\Exceptions\LocatorException;
-
 /**
  * Class FilesystemHelper
  *
@@ -34,7 +32,7 @@ class FilesystemHelper
             
             $iterator->next();
         }
-        
+
         return $arr;
     }
     
@@ -43,8 +41,6 @@ class FilesystemHelper
         if (is_file($path)) {
             return require $path;
         }
-        
-        throw new LocatorException("File does not exist at path {$path}");
     }
     
     public function makeDirectory($path, $mode = 0755, $recursive = false)
