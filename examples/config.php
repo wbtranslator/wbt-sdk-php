@@ -5,7 +5,7 @@ use WBTranslator\Sdk\Config;
 
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
-define('WBT_API_KEY', 'ea84db77506cd5bc8586af4ec4b7a347');
+define('WBT_API_KEY', '*****YOUR_PROJECT_API_KEY*****');
 
 $client = new \GuzzleHttp\Client([
     'base_uri' => 'http://wbtranslator.dev/api/project/'
@@ -14,7 +14,7 @@ $client = new \GuzzleHttp\Client([
 $config = new Config;
 $config->setApiKey(WBT_API_KEY);
 $config->setClient($client);
-$config->setBasePath('/www/wbt/web.translator');
+$config->setBasePath('/www/myproject');
 $config->setLocale('en');
 $config->setLangPaths([
     '/resources/lang'

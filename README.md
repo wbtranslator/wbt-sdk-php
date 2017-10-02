@@ -2,7 +2,7 @@
 ### Examples
 Get all translations
 ```php
-define('WBT_API_KEY', 'ea84db77506cd5bc8586af4ec4b7a347');
+define('WBT_API_KEY', '*****YOUR_PROJECT_API_KEY*****');
 
 $config = new \WBTranslator\Sdk\Config();
 $config->setApiKey(WBT_API_KEY);
