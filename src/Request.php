@@ -60,7 +60,7 @@ class Request implements RequestInterface
         try {
             $response = $this->client->request($method, $uri, $options);
             $body = \json_decode((string) $response->getBody(), true);
-            print_r($body);
+
             if (!empty($body['status']) && $body['status'] == 'success') {
                 return $body['data'];
             }
