@@ -84,7 +84,6 @@ class Translations extends Resource implements ResourceInterface
         $params = [];
 
         foreach ($translations as $translation) {
-            
             $row = [
                 'name' => $translation->getAbstractName(),
                 'value' => $translation->getOriginalValue(),
@@ -119,7 +118,7 @@ class Translations extends Resource implements ResourceInterface
                     $translation->setAbstractName($abstraction['abstract_name'])
                         ->setOriginalValue($abstraction['original_value'])
                         ->setLanguage($translate['language'])
-                        ->setTranslation($translate['value']);
+                        ->setTranslation($translate['value'] ?? '');
 
                     if (isset($abstraction['group'])) {
                         $group = new Group();
