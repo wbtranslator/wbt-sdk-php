@@ -195,7 +195,7 @@ class Group implements GroupInterface
      */
     public function setFromArray(array $data): GroupInterface
     {
-        $this->setName($data['name']);
+        $this->setName($data['name'] ?? '');
     
         if (isset($data['id'])) {
             $this->setId($data['id']);
