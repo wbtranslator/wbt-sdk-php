@@ -161,4 +161,9 @@ class WBTranslatorSdk
         
         return $this->locator;
     }
+
+    public function config() :ConfigInterface
+    {
+        return $this->config;
+    }
 }

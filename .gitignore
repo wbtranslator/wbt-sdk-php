@@ -6,3 +6,4 @@
 Thumbs.db
 Desktop.ini
 phpunit.xml
+/composer.lock
