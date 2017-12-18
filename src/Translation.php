@@ -164,4 +164,11 @@ class Translation implements TranslationInterface
     {
         return !empty($this->group) ?: false;
     }
+
+    public function removeGroup()
+    {
+        unset($this->group);
+
+        return $this;
+    }
 }
