@@ -50,24 +50,27 @@ class Locator
     public function scan()
     {
         $collection = new Collection;
-        
+
+        $warnings = [];
+
         foreach ($this->config->getLangPaths() as $localeDirectory) {
             if (!file_exists($basePath = $this->getLocalePath($localeDirectory))) {
+                $warnings[$basePath] = "This path does not exists. Check your WBT configuration file (wbt.php)!";
                 continue;
             }
-            
+
             $rootGroup = $this->createGroup($localeDirectory);
 
             foreach ($this->filesystem->getAllFiles($basePath) as $file) {
-                $data = $this->filesystem->getRequire($file['absolutePathname']);
-                
                 if (file_exists($file['absolutePathname'])) {
+                    $data = $this->filesystem->getRequire($file['absolutePathname']);
+
                     if (!empty($data) && is_array($data)) {
                         $group = $this->createGroup($file['relativePathname'], $rootGroup);
                         
                         foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
                             if (!$abstractName) {
-                                continue;
+                                $warnings[$abstractName] = 'This abstract name does not exists';
                             }
     
                             $originalValue = !empty($originalValue) ? (string) $originalValue : '';
@@ -79,7 +82,8 @@ class Locator
                 }
             }
         }
-        return $collection;
+
+        return ['collection' => $collection, 'warnings' => $warnings];
     }
     
     /**
