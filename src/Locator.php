@@ -64,23 +64,21 @@ class Locator
             $rootGroup = $this->createGroup($localeDirectory);
 
             foreach ($this->filesystem->getAllFiles($basePath) as $file) {
-                if (file_exists($file['absolutePathname'])) {
-                    $data = $this->filesystem->getRequire($file['absolutePathname']);
+                $data = $this->filesystem->getRequire($file['absolutePathname']);
 
-                    if (!empty($data) && is_array($data)) {
-                        $group = $this->createGroup($file['relativePathname'], $rootGroup);
-                        
-                        foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
-                            if (!$abstractName) {
-                                $this->warnings[$abstractName] = 'This abstract name does not exists';
-                                continue;
-                            }
-    
-                            $originalValue = !empty($originalValue) ? (string) $originalValue : '';
-                            
-                            $translation = $this->createTranslation((string) $abstractName, $originalValue, $group);
-                            $collection->add($translation);
+                if (!empty($data) && is_array($data)) {
+                    $group = $this->createGroup($file['relativePathname'], $rootGroup);
+
+                    foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
+                        if (!$abstractName) {
+                            $this->warnings[$abstractName] = 'This abstract name does not exists';
+                            continue;
                         }
+
+                        $originalValue = !empty($originalValue) ? (string) $originalValue : '';
+                        
+                        $translation = $this->createTranslation((string) $abstractName, $originalValue, $group);
+                        $collection->add($translation);
                     }
                 }
             }
