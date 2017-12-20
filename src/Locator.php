@@ -71,6 +71,7 @@ class Locator
                         foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
                             if (!$abstractName) {
                                 $warnings[$abstractName] = 'This abstract name does not exists';
+                                continue;
                             }
     
                             $originalValue = !empty($originalValue) ? (string) $originalValue : '';
