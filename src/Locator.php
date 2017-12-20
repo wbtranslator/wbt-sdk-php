@@ -27,7 +27,11 @@ class Locator
      * @var FilesystemHelper
      */
     protected $filesystem;
-    
+
+    /** @var array */
+    protected $warnings = [];
+
+    /** @var string  */
     protected $fileExtension = '.php';
     
     /**
@@ -51,11 +55,9 @@ class Locator
     {
         $collection = new Collection;
 
-        $warnings = [];
-
         foreach ($this->config->getLangPaths() as $localeDirectory) {
             if (!file_exists($basePath = $this->getLocalePath($localeDirectory))) {
-                $warnings[$basePath] = "This path does not exists. Check your WBT configuration file (wbt.php)!";
+                $this->warnings[$basePath] = "This path does not exists. Check your WBT configuration file (wbt.php)!";
                 continue;
             }
 
@@ -70,7 +72,7 @@ class Locator
                         
                         foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
                             if (!$abstractName) {
-                                $warnings[$abstractName] = 'This abstract name does not exists';
+                                $this->warnings[$abstractName] = 'This abstract name does not exists';
                                 continue;
                             }
     
@@ -84,7 +86,7 @@ class Locator
             }
         }
 
-        return ['collection' => $collection, 'warnings' => $warnings];
+        return $collection;
     }
     
     /**
@@ -243,5 +245,10 @@ class Locator
     protected function groupToPath(GroupInterface $group): array
     {
         return explode($this->config->getDelimiter(), $group->getName());
+    }
+
+    public function getWarnings() :array
+    {
+        return $this->warnings;
     }
 }
