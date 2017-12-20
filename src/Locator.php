@@ -27,7 +27,11 @@ class Locator
      * @var FilesystemHelper
      */
     protected $filesystem;
-    
+
+    /** @var array */
+    protected $warnings = [];
+
+    /** @var string  */
     protected $fileExtension = '.php';
     
     /**
@@ -50,35 +54,36 @@ class Locator
     public function scan()
     {
         $collection = new Collection;
-        
+
         foreach ($this->config->getLangPaths() as $localeDirectory) {
             if (!file_exists($basePath = $this->getLocalePath($localeDirectory))) {
+                $this->warnings[$basePath] = "This path does not exists. Check your WBT configuration file (wbt.php)!";
                 continue;
             }
-            
+
             $rootGroup = $this->createGroup($localeDirectory);
 
             foreach ($this->filesystem->getAllFiles($basePath) as $file) {
                 $data = $this->filesystem->getRequire($file['absolutePathname']);
-                
-                if (file_exists($file['absolutePathname'])) {
-                    if (!empty($data) && is_array($data)) {
-                        $group = $this->createGroup($file['relativePathname'], $rootGroup);
-                        
-                        foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
-                            if (!$abstractName) {
-                                continue;
-                            }
-    
-                            $originalValue = !empty($originalValue) ? (string) $originalValue : '';
-                            
-                            $translation = $this->createTranslation((string) $abstractName, $originalValue, $group);
-                            $collection->add($translation);
+
+                if (!empty($data) && is_array($data)) {
+                    $group = $this->createGroup($file['relativePathname'], $rootGroup);
+
+                    foreach ((ArrayHelper::dot($data)) as $abstractName => $originalValue) {
+                        if (!$abstractName) {
+                            $this->warnings[$abstractName] = 'This abstract name does not exists';
+                            continue;
                         }
+
+                        $originalValue = !empty($originalValue) ? (string) $originalValue : '';
+                        
+                        $translation = $this->createTranslation((string) $abstractName, $originalValue, $group);
+                        $collection->add($translation);
                     }
                 }
             }
         }
+
         return $collection;
     }
     
@@ -238,5 +243,10 @@ class Locator
     protected function groupToPath(GroupInterface $group): array
     {
         return explode($this->config->getDelimiter(), $group->getName());
+    }
+
+    public function getWarnings() :array
+    {
+        return $this->warnings;
     }
 }
